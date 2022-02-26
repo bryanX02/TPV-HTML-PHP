@@ -118,6 +118,28 @@ class Empleado
         $this->pass = $pass;
     }
 
+    public function validarEmpleado($user, $pass)
+    {
+        $existe = false;
+
+        $sql = "select * from " . $this->tabla . " where user = " .$user. " and pass = " .$pass;
+        $conexion = new BD();
+        $res = $conexion ->consulta($sql);
+        if ($res > 0){
+            list($idEmpleado, $nombre, $user, $pass) = mysqli_fetch_array($res);
+            session_start();
+            $_SESSION['idEmpleado'] = $idEmpleado;
+            $_SESSION['nombre'] = $nombre;
+            $_SESSION['user'] = $user;
+            $_SESSION['pass'] = $pass;
+            $existe = true;
+
+        }
+
+        return $existe;
+
+    }
+
 
 
 }
