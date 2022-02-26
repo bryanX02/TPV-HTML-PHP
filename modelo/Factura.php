@@ -142,5 +142,21 @@ class Factura
 
     }
 
+    /**
+     * @param $idFactura
+     *
+     * Metodo que empleo para obtener una factura en concreto, por su id
+     */
+    public function obtenerPorIdFactura($idFactura)
+    {
+
+        $sql = "SELECT * FROM " . $this->tabla . " WHERE idFactura = " . $idFactura;
+        $conexion = new BD();
+        $res = $conexion->consulta($sql);
+        list($idFactura, $numeroFactura, $empleado, $fecha, $numeroMesa) = mysqli_fetch_array($res);
+        $this->llenarEmpleado($idFactura, $numeroFactura, $empleado, $fecha, $numeroMesa);
+
+    }
+
 
 }

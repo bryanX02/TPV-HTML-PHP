@@ -21,7 +21,7 @@ class Empleado
         $this->nombre = $nombre;
         $this->user = $user;
         $this->pass = $pass;
-        $this->tabla = "Empleados";
+        $this->tabla = "empleados";
     }
 
     /**
@@ -118,14 +118,22 @@ class Empleado
         $this->pass = $pass;
     }
 
-    public function validarEmpleado($user, $pass)
+    /**
+     * Método que valida si el usuario existe y crea la session
+     * @param $user
+     * @param $pass
+     * @return bool
+     */
+    public function login($user, $pass)
     {
         $existe = false;
 
-        $sql = "select * from " . $this->tabla . " where user = " .$user. " and pass = " .$pass;
+        $sql = "select * from " . $this->tabla . " where user = '" .$user. "' and pass = '" .$pass."';";
         $conexion = new BD();
         $res = $conexion ->consulta($sql);
-        if ($res > 0){
+        //echo $sql;
+        if ($res->num_rows != 0){
+
             list($idEmpleado, $nombre, $user, $pass) = mysqli_fetch_array($res);
             session_start();
             $_SESSION['idEmpleado'] = $idEmpleado;
@@ -133,13 +141,25 @@ class Empleado
             $_SESSION['user'] = $user;
             $_SESSION['pass'] = $pass;
             $existe = true;
-
         }
 
         return $existe;
 
     }
 
+    /**
+     * @param $idEmpleado
+     *
+     * Metodo que empleo para obtener un empleado en concreto, por su id
+     */
+    public function obtenerPorIdEmpleado($idEmpleado)
+    {
 
+        $sql = "SELECT * FROM " . $this->tabla . " WHERE idEmpleado = " . $idEmpleado;
+        $conexion = new BD();
+        $res = $conexion->consulta($sql);
+        list($idEmpleado, $nombre, $user, $pass) = mysqli_fetch_array($res);
+        $this->llenarEmpleado($idEmpleado, $nombre, $user, $pass);
 
+    }
 }

@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+// ESTO NO FUNCIONA, HAY QUE HACER PRUEBAS PARA VALIDARLO
+if (!isset($_SESSION['idEmpleado'])) {
+    header("location:../../../index.php");
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -86,7 +97,7 @@
 	                		</li>
 
 							<!-- MENÚ DESPEGABLEU -->
-	                		<li><a href="demo-1.html">MENÚ</a>
+	                		<li><a href="demo-1.php">MENÚ</a>
 	                		</li>
 	                    </ul>
 	                </nav>	<!--FINAL MENU PRINCIPAL -->
