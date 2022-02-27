@@ -72,9 +72,26 @@ class ListaLineasPedidos
 
     public function addLineaPedido($referencia, $idMesa){
 
+
+
     }
 
-    public function comprobarExisteReferenciaPedido($referencia, ){
+    public function comprobarExisteReferenciaPedido($referencia){
+
+        $existe = false;
+        $contador = 0;
+
+        do {
+
+            if ($this->lista[$contador]->getFreferenciaProducto() == $referencia) {
+                $existe=true;
+            }
+
+            $contador++;
+
+        } while (!$existe && $contador<count($this->lista));
+
+        return $existe;
 
     }
 

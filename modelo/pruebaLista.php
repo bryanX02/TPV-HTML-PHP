@@ -47,6 +47,7 @@
 
     <?php
     require "BD.php";
+    require "ListaLineasPedidos.php";
 
     $numMesa = 1; // Esta es la variable que nos llegaria por el get del html
     $idMesa = null; // Variable donde guardamos la idMesa en uso
@@ -74,7 +75,6 @@
         }
 
     }
-
 
 
     ?>
