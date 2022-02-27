@@ -50,7 +50,7 @@
 
     $numMesa = 1; // Esta es la variable que nos llegaria por el get del html
     $idMesa = null; // Variable donde guardamos la idMesa en uso
-    $listaPedidos = array(); // Array donde guardaremos la lista de pedidos que hay en esa lista
+    $listaPedidos = new ListaLineasPedidos(); // Array donde guardaremos la lista de pedidos que hay en esa lista
     $conexion = new BD();
 
     // Comprobamos si la mesa está en uso
@@ -63,13 +63,13 @@
         // Guardamos la id del registro mesa
         $idMesa = $conexion->getIdMesaOcupada($numMesa);
 
-        // Guardamos la lista de pedidos
-        $listaPedidos = $conexion->getListaPedidosMesa($idMesa);
+        // Obtenemos la lista de pedidos (en el atributo lista)
+        $listaPedidos->getListaPedidosMesa($idMesa);
 
         // Cargamos la lista en divs
-        for ($i = 0; $i < count($listaPedidos); $i++) {
+        for ($i = 0; $i < count($listaPedidos->getLista()); $i++) {
             // Ejemplo de prueba
-            echo'<div>'.$listaPedidos[$i]->getNombreProducto().' || UNID: '.$listaPedidos[$i]->getCantidadProducto().'</div>';
+            echo'<div>'.$listaPedidos->getLista()[$i]->getNombreProducto().' || UNID: '.$listaPedidos->getLista()[$i]->getCantidadProducto().'</div>';
 
         }
 

@@ -88,36 +88,7 @@ class BD
     }
 
 
-    // METODOS PARA LA LISTA DE PEDIDOS
 
-    /**
-     * Método que consigue todas las lineas de pedidos de un idMesa que pasamos por parámetros
-     * @param $idMesa
-     * @return el array que contiene todos los objetos del tipo LineaPedido
-     */
-    public function getListaPedidosMesa($idMesa){
-        $lista = array();
-        $consulta = "SELECT * FROM lineasPedidos WHERE fidMesa = ".$idMesa.";";
-        $this->resultado = $this->conexion->query($consulta);
-        $resultado = $this->resultado;
-
-        while (list($idLineaPedido, $fidMesa, $freferenciaProducto, $tipoProducto, $nombreProducto, $descripcionProducto, $precioProducto, $ivaProducto, $cantidadProducto) = mysqli_fetch_array($resultado)) {
-
-            $lineaPedido = new LineaPedido($idLineaPedido, $fidMesa, $freferenciaProducto, $tipoProducto, $nombreProducto, $descripcionProducto, $precioProducto, $ivaProducto, $cantidadProducto);
-            array_push($lista, $lineaPedido);
-
-        }
-
-        return $lista;
-    }
-
-    public function addLineaPedido($referencia, $idMesa){
-
-    }
-
-    public function comprobarExisteReferenciaPedido($referencia, ){
-
-    }
     
 
 }
