@@ -59,7 +59,7 @@ class BD
     /**
      * Método que nos devulve el idMesa del registro que tiene la mesa ocupada con el numero de mesa que llega por parámetros
      * @param $numMesa
-     * @return el número de idMesa
+     * @return el idMesa
      */
     public function getIdMesaOcupada($numMesa){
         $sql = "SELECT idMesa FROM mesas WHERE numero = '" . $numMesa."' and estado = 1";
@@ -109,6 +109,14 @@ class BD
         }
 
         return $lista;
+    }
+
+    public function addLineaPedido($referencia, $idMesa){
+
+    }
+
+    public function comprobarExisteReferenciaPedido($referencia, ){
+
     }
     
 
