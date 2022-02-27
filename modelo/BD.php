@@ -38,6 +38,12 @@ class BD
     }
 
     // METODOS PARA LAS MESAS
+
+    /**
+     * Método que comprueba si la mesa que pasamos por parámetros está en uso
+     * @param $numMesa
+     * @return un booleano: true si está ocupada y false si no
+     */
     public function comprobarMesaOcupada($numMesa){
         $mesaOcupada = false;
         $sql = "SELECT * FROM mesas WHERE numero = '" . $numMesa."' and estado = 1";
@@ -50,11 +56,16 @@ class BD
         return $mesaOcupada;
     }
 
+    /**
+     * Método que nos devulve el idMesa del registro que tiene la mesa ocupada con el numero de mesa que llega por parámetros
+     * @param $numMesa
+     * @return el número de idMesa
+     */
     public function getIdMesaOcupada($numMesa){
         $sql = "SELECT idMesa FROM mesas WHERE numero = '" . $numMesa."' and estado = 1";
         $this->resultado = $this->conexion->query($sql);
 
-        // Esto nos ayuda a sacarlo del objeto de la clase mysqli_result
+        // Esto nos ayuda a sacarlo del objeto de la clase mysqli_result para poder usar el número
         while ($row = $this->resultado->fetch_assoc()) {
             $res = $row['idMesa'];
         }
@@ -63,6 +74,11 @@ class BD
 
     }
 
+    /**
+     * Método que inserta un nuevo registro en la tabla mesa y deja el estado de la mesa en ocupado (1)
+     * @param $numMesa
+     * @return  el número de registros creados
+     */
     public function insertarRegistroMesa($numMesa){
         $sql = "INSERT INTO mesas (numero, estado) values ($numMesa, 1)";
         $this->resultado = $this->conexion->query($sql);
@@ -73,6 +89,12 @@ class BD
 
 
     // METODOS PARA LA LISTA DE PEDIDOS
+
+    /**
+     * Método que consigue todas las lineas de pedidos de un idMesa que pasamos por parámetros
+     * @param $idMesa
+     * @return el array que contiene todos los objetos del tipo LineaPedido
+     */
     public function getListaPedidosMesa($idMesa){
         $lista = array();
         $consulta = "SELECT * FROM lineasPedidos WHERE fidMesa = ".$idMesa.";";
