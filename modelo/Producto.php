@@ -225,4 +225,17 @@ class Producto
         $this->imagen = $imagen;
     }
 
+    /**
+     * Método que quita una unidad de stock al producto que le llega por parámetro
+     * @param $referenciaProducto
+     * @return bool|mysqli_result
+     */
+    public function quitarUnidadProducto($referenciaProducto) {
+        $sql = "UPDATE " .$this->tabla." SET stock = stock - 1 WHERE referencia = '" . $referenciaProducto."'";
+        $conexion = new BD();
+        $res = $conexion->consulta($sql);
+        return $res;
+    }
+
+
 }

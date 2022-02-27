@@ -1,4 +1,6 @@
 <?php
+require "Mesa.php";
+require "LineaPedido.php";
 
 class BD
 {
@@ -33,6 +35,58 @@ class BD
         $this->resultado =   $this->conexion->query($consulta);
         $res = $this->resultado ;
         return $res;
+    }
+
+    // METODOS PARA LAS MESAS
+    public function comprobarMesaOcupada($numMesa){
+        $mesaOcupada = false;
+        $sql = "SELECT * FROM mesas WHERE numero = '" . $numMesa."' and estado = 1";
+        $res = $this->conexion->query($sql);
+
+        if ($res->num_rows != 0){
+            $mesaOcupada= true;
+        }
+
+        return $mesaOcupada;
+    }
+
+    public function getIdMesaOcupada($numMesa){
+        $sql = "SELECT idMesa FROM mesas WHERE numero = '" . $numMesa."' and estado = 1";
+        $this->resultado = $this->conexion->query($sql);
+
+        // Esto nos ayuda a sacarlo del objeto de la clase mysqli_result
+        while ($row = $this->resultado->fetch_assoc()) {
+            $res = $row['idMesa'];
+        }
+
+        return $res;
+
+    }
+
+    public function insertarRegistroMesa($numMesa){
+        $sql = "INSERT INTO mesas (numero, estado) values ($numMesa, 1)";
+        $this->resultado = $this->conexion->query($sql);
+        $res = $this->resultado;
+
+        return $res;
+    }
+
+
+    // METODOS PARA LA LISTA DE PEDIDOS
+    public function getListaPedidosMesa($idMesa){
+        $lista = array();
+        $consulta = "SELECT * FROM lineasPedidos WHERE fidMesa = ".$idMesa.";";
+        $this->resultado = $this->conexion->query($consulta);
+        $resultado = $this->resultado;
+
+        while (list($idLineaPedido, $fidMesa, $freferenciaProducto, $tipoProducto, $nombreProducto, $descripcionProducto, $precioProducto, $ivaProducto, $cantidadProducto) = mysqli_fetch_array($resultado)) {
+
+            $lineaPedido = new LineaPedido($idLineaPedido, $fidMesa, $freferenciaProducto, $tipoProducto, $nombreProducto, $descripcionProducto, $precioProducto, $ivaProducto, $cantidadProducto);
+            array_push($lista, $lineaPedido);
+
+        }
+
+        return $lista;
     }
     
 
