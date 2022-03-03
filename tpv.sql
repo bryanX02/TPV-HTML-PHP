@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-02-2022 a las 19:34:47
+-- Tiempo de generación: 03-03-2022 a las 10:44:34
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.11
 
@@ -31,7 +31,7 @@ CREATE TABLE `empleados` (
   `idEmpleado` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `user` varchar(20) NOT NULL,
-  `pass` varchar(30) NOT NULL
+  `pass` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -39,11 +39,11 @@ CREATE TABLE `empleados` (
 --
 
 INSERT INTO `empleados` (`idEmpleado`, `nombre`, `user`, `pass`) VALUES
-(1, 'Bryan', '02bryanX', '1234'),
-(2, 'Chema', 'chema', '1234'),
-(3, 'Belem', 'belem', '1234'),
-(4, 'Sergio', 'sergio', '1234'),
-(5, 'Lazaro', 'lazaro', 'tierradelazaro1234');
+(1, 'Bryan', '02bryanX', '81dc9bdb52d04dc20036dbd8313ed055'),
+(2, 'Chema', 'chema', '81dc9bdb52d04dc20036dbd8313ed055'),
+(3, 'Belem', 'belem', '81dc9bdb52d04dc20036dbd8313ed055'),
+(4, 'Sergio', 'sergio', '81dc9bdb52d04dc20036dbd8313ed055'),
+(5, 'Lazaro', 'lazaro', '631f570cae53805efcf0987d6aa02c6b');
 
 -- --------------------------------------------------------
 

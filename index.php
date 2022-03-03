@@ -5,8 +5,7 @@ require "modelo/Empleado.php";
 if (isset($_POST) && !empty($_POST)){
 
     $nickname = addslashes($_POST['txtUsuario']);
-    $pass = addslashes($_POST['txtPassword']); // Utilizando hash para encriptarla y compararla con la de la db
-
+    $pass = hash("md5", addslashes($_POST['txtPassword'])); // Utilizando hash para encriptarla y compararla con la de la db
     $empleado = new Empleado();
 
     if ($empleado -> login($nickname, $pass)){
