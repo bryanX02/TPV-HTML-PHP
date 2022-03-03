@@ -212,7 +212,7 @@ class Producto
      * @param $iva
      * @param $imagen
      */
-    public function llenarProducto($idProducto="", $tipo="", $nombre="", $referencia="", $descripcion="", $stock="", $precio="", $iva="", $imagen="")
+    public function llenarProducto($idProducto, $tipo, $nombre, $referencia, $descripcion, $stock, $precio, $iva, $imagen)
     {
         $this->idProducto = $idProducto;
         $this->tipo = $tipo;
@@ -226,6 +226,22 @@ class Producto
     }
 
     /**
+     * @param $idProducto
+     *
+     * Metodo que empleo para obtener un producto en concreto, por su id
+     */
+    public function obtenerPorIdProducto($idProducto)
+    {
+
+        $sql = "SELECT * FROM " . $this->tabla . " WHERE idProducto = " . $idProducto;
+        $conexion = new BD();
+        $res = $conexion->consulta($sql);
+        list($idProducto, $tipo, $nombre, $referencia, $descripcion, $stock, $precio, $iva, $imagen) = mysqli_fetch_array($res);
+        $this->llenarEmpleado($idProducto, $tipo, $nombre, $referencia, $descripcion, $stock, $precio, $iva, $imagen);
+
+    }
+
+    /**
      * Método que quita una unidad de stock al producto que le llega por parámetro
      * @param $referenciaProducto
      * @return bool|mysqli_result
@@ -236,5 +252,7 @@ class Producto
         $res = $conexion->consulta($sql);
         return $res;
     }
+
+
 
 }

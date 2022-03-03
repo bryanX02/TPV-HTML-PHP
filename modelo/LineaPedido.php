@@ -227,4 +227,21 @@ class LineaPedido
 
 
 
+    /**
+     * @param $idLineaPedido
+     *
+     * Metodo que empleo para obtener una linea de pedido en concreto, por su id
+     */
+    public function obtenerPorIdLineaPedido($idLineaPedido)
+    {
+
+        $sql = "SELECT * FROM " . $this->tabla . " WHERE idLineaPedido = " . $idLineaPedido;
+        $conexion = new BD();
+        $res = $conexion->consulta($sql);
+        list($idLineaPedido, $fidMesa, $freferenciaProducto, $tipoProducto, $nombreProducto, $descripcionProducto, $precioProducto, $ivaProducto, $cantidadProducto) = mysqli_fetch_array($res);
+        $this->llenarLineaPedido($idLineaPedido, $fidMesa, $freferenciaProducto, $tipoProducto, $nombreProducto, $descripcionProducto, $precioProducto, $ivaProducto, $cantidadProducto);
+
+    }
+
+
 }

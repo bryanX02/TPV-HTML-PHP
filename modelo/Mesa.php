@@ -97,6 +97,23 @@ class Mesa
         $this->estado = $estado;
     }
 
+    /**
+     * @param $idMesa
+     *
+     * Metodo que empleo para obtener una linea de factura en concreto, por su id
+     */
+    public function obtenerPorIdLineaFactura($idMesa)
+    {
+
+        $sql = "SELECT idMesa, numero, estado FROM " . $this->tabla . " WHERE idMesa = " . $idMesa;
+        $conexion = new BD();
+        $res = $conexion->consulta($sql);
+        list($idMesa, $numero, $estado) = mysqli_fetch_array($res);
+        $this->llenarLineaFactura($idMesa, $numero, $estado);
+
+    }
+
+
 
 
 }

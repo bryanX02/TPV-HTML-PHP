@@ -157,7 +157,7 @@ class LineaFactura
         $conexion = new BD();
         $res = $conexion->consulta($sql);
         list($idLineaFactura, $fnumeroFactura, $nombreProducto, $referenciaProducto, $precioProducto, $ivaProducto) = mysqli_fetch_array($res);
-        $this->llenarEmpleado($idLineaFactura, $fnumeroFactura, $nombreProducto, $referenciaProducto, $precioProducto, $ivaProducto);
+        $this->llenarLineaFactura($idLineaFactura, $fnumeroFactura, $nombreProducto, $referenciaProducto, $precioProducto, $ivaProducto);
 
     }
 
