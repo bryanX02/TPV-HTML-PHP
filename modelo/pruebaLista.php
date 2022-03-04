@@ -1,4 +1,16 @@
 <?php
+require "BD.php";
+require "ListaLineasPedidos.php";
+
+$tipo = 1;
+
+if (isset($_POST) && !empty($_POST)){
+    if (isset($_POST['tipo'])){
+        $tipo = $_POST['tipo'];
+    }
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +47,6 @@
 
 
 
-
     </style>
 
 </head>
@@ -43,16 +54,30 @@
 
 <body id="top">
 
+<div> <!-- Este es el div del hueco que nos dejan para meter los productos -->
+    <?php
+
+
+    $listaProductos = new ListaProductos();
+
+    // Obtenemos la lista de productos del tipo solicitado
+    $listaProductos->getProductosTipo($tipo);
+
+    //
+
+    ?>
+
+
+</div>
 <div> <!-- Este es el div del hueco que nos dejan para meter la lista -->
 
     <?php
-    require "BD.php";
-    require "ListaLineasPedidos.php";
 
+    $conexion = new BD();
     $numMesa = 1; // Esta es la variable que nos llegaria por el get del html
     $idMesa = null; // Variable donde guardamos la idMesa en uso
     $listaPedidos = new ListaLineasPedidos(); // Array donde guardaremos la lista de pedidos que hay en esa lista
-    $conexion = new BD();
+
 
     // Comprobamos si la mesa está en uso
     if (!$conexion->comprobarMesaOcupada($numMesa)){ // Si NO está en uso
@@ -76,16 +101,9 @@
 
     }
 
-
     ?>
 
 </div>
-
-<div>
-
-</div>
-
-
 
 </body>
 

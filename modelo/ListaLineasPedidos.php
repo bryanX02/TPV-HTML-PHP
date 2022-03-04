@@ -57,7 +57,7 @@ class ListaLineasPedidos
      */
     public function getListaPedidosMesa($idMesa){
 
-        $consulta = "SELECT * FROM lineasPedidos WHERE fidMesa = ".$idMesa.";";
+        $consulta = "SELECT * FROM " .$this->tabla. " WHERE fidMesa = ".$idMesa.";";
         $conexion = new BD();
         $resultado = $conexion->consulta($consulta);
 
