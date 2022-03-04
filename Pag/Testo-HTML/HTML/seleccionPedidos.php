@@ -6,6 +6,8 @@ require "../../../modelo/ListaProductos.php";
 require "../../../modelo/Producto.php";
 require "../../../modelo/Factura.php";
 
+session_start();
+
 $tipo = 1;
 $listaLineasPedidos = new ListaLineasPedidos();
 
@@ -30,6 +32,15 @@ $listaLineasPedidos = new ListaLineasPedidos();
             $factura = new Factura();
 
         }
+
+        // Nos devuelve el numero de mesa en el que nos encontramos
+        $numMesa = $_SESSION['numMesaActual'];
+
+    } else {
+
+        // Nos guarda el numero de mesa que llega por el get a su variable y tambien en el sesion para cuando actualice pagine sepamos en que mesa seguimos
+        $numMesa = $_GET['numMesa'];
+        $_SESSION['numMesaActual'] = $numMesa;
     }
 
 ?>
@@ -71,25 +82,42 @@ $listaLineasPedidos = new ListaLineasPedidos();
             max-width: 1200px;
             height: 700px;
             margin: 0 auto;
-            border: 1px solid black;
+            background: #BD977E;
+
+
+        }
+
+        #contenedor > div {
+            padding: 10px;
         }
 
         /***** PARTE SUPERIOR *****/
 
         #contenedorSuperior {
+
             width: 100%;
             display: flex;
+
 
         }
 
         #contenedorInformacionMesa{
-            width: 30%;
-            border: 1px solid black;
+            width: 25%;
+            margin-right: 5px;
+            background: white;
+            padding: 4px;
+            border-radius: 4px;
+            filter:alpha(opacity=70);
+            -moz-opacity:.70;opacity:.70;
         }
 
         #contenedorLogo{
-            width: 70%;
-            border: 1px solid black;
+            width: 71.5%;
+            background: white;
+            padding: 4px;
+            border-radius: 4px;
+            filter:alpha(opacity=70);
+            -moz-opacity:.70;opacity:.70;
         }
 
         .logo{
@@ -106,30 +134,44 @@ $listaLineasPedidos = new ListaLineasPedidos();
         #contenedorInferior{
 
             width: 100%;
-            height: 85%;
+            height: 73%;
             display: flex;
         }
 
         #contenedorListado{
-            border: 1px solid black;
+            background: white;
+            border-radius: 4px;
+            margin-right: 5px;
             display: flex;
             flex-flow: column wrap;
-            justify-content: space-between;
+            justify-content: space-around;
             width: 30%;
+            height: 103.5%;
+        }
+
+        #listado{
+            border: 2px solid gray;
+            margin: 0 auto;
+            width: 90%;
+            height: 82%;
+
         }
 
         #botonesFinales{
-            border: 1px solid black;
+
             text-align: center;
         }
 
         #botonesProductos{
-            width: 70%;
+            width: 67%;
         }
 
         #contenedorTiposProducto{
+            background: #FFDCC4;
+            padding: 4px;
+            border-radius: 4px;
             width: 100%;
-            margin-bottom: 40px;
+            margin-bottom: 15px;
             display: flex;
             flex-flow: row wrap;
             justify-content: space-around;
@@ -137,7 +179,7 @@ $listaLineasPedidos = new ListaLineasPedidos();
 
         #contenedorTiposProducto > div{
             width: 25%;
-            margin: 10px;
+            margin: 6px;
 
         }
 
@@ -145,18 +187,33 @@ $listaLineasPedidos = new ListaLineasPedidos();
             width: 100%;
             display: flex;
             flex-flow: row wrap;
-            justify-content: space-around;
+            justify-content:space-around;
+
+
+
         }
 
         .tamanoImagenes{
-            width: 80px;
+            width: 120px;
             display: block;
             margin: 0 auto;
         }
 
+        .imgHover:hover {
+            -webkit-filter: contrast(130%);
+            filter: contrast(110%);
+            transform: scale(1.05);
+
+        }
+
         #contenedorProductos > div{
-            width: 22%;
-            height: 80px;
+            width: 32%;
+            height: 120px;
+            margin-bottom: 10px;
+
+            background: #FFDCC4;
+            padding: 4px;
+            border-radius: 4px;
 
         }
 
@@ -164,7 +221,7 @@ $listaLineasPedidos = new ListaLineasPedidos();
 
         /**** BOTONES ****/
         .btn {
-            width: 150px;
+            width: 160px;
             background: #ff6600;
             background-image: -webkit-linear-gradient(top, #ff6600, #c44e00);
             background-image: -moz-linear-gradient(top, #ff6600, #c44e00);
@@ -175,7 +232,9 @@ $listaLineasPedidos = new ListaLineasPedidos();
             text-shadow: 1px 1px 3px #666666;
            /* font-family: Arial;*/
             color: #ffffff;
-            font-size: 15px;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 1px;
             padding: 10px 20px 10px 20px;
             text-decoration: none;
             display: block;
@@ -198,7 +257,6 @@ $listaLineasPedidos = new ListaLineasPedidos();
             background-image: linear-gradient(to bottom, #990000, #7a0909);
             border-radius: 28px;
             text-shadow: 1px 1px 3px #666666;
-            font-family: Arial;
             color: #ffffff;
             font-size: 15px;
             padding: 10px 20px 10px 20px;
@@ -218,6 +276,9 @@ $listaLineasPedidos = new ListaLineasPedidos();
             text-decoration: none;
         }
 
+        .btnVolver{
+            width: 40px;
+        }
 
 
 
@@ -237,9 +298,9 @@ $listaLineasPedidos = new ListaLineasPedidos();
 
         <!-- Información de la mesa -->
         <div id = "contenedorInformacionMesa">
-            <a href="#">Volver</a>
+            <a href="mesas.html"><img class="btnVolver" alt="boton de volver" src="images/btnVolver.png" ></a>
             <p>Camarero: Bryan Quilumba</p>
-            <p>Mesa: 3</p>
+            <p>Mesa: <?php echo $numMesa?></p>
         </div>
 
         <!-- Logo-->
@@ -259,7 +320,6 @@ $listaLineasPedidos = new ListaLineasPedidos();
                 <?php
 
                     $conexion = new BD();
-                    $numMesa = 1; // Esta es la variable que nos llegaria por el get del html
                     $idMesa = null; // Variable donde guardamos la idMesa en uso
                     $listaPedidos = new ListaLineasPedidos(); // Array donde guardaremos la lista de pedidos que hay en esa lista
 
@@ -303,12 +363,12 @@ $listaLineasPedidos = new ListaLineasPedidos();
 
             <form name="menu" action="<?php echo $_SERVER['PHP_SELF']?>" method="post" enctype="multipart/form-data">
                 <div id = "contenedorTiposProducto">
-                    <div><input class="btn" type="submit" name="1" id="1" value="Refrescos"></div>
-                    <div><input class="btn" type="submit" name="2" id="2" value="Entrantes"></div>
-                    <div><input class="btn" type="submit" name="3" id="3" value="Ensaladas"></div>
-                    <div><input class="btn" type="submit" name="4" id="4" value="Complementos"></div>
-                    <div><input class="btn" type="submit" name="5" id="5" value="Hamburguesas"></div>
-                    <div><input class="btn" type="submit" name="6" id="6" value="Postres"></div>
+                    <div><input class="btn" type="submit" name="1" id="1" value="REFRESCOS"></div>
+                    <div><input class="btn" type="submit" name="2" id="2" value="ENTRANTES"></div>
+                    <div><input class="btn" type="submit" name="3" id="3" value="ENSALADAS"></div>
+                    <div><input class="btn" type="submit" name="4" id="4" value="COMPLEMENTOS"></div>
+                    <div><input class="btn" type="submit" name="5" id="5" value="HAMBURGUESAS"></div>
+                    <div><input class="btn" type="submit" name="6" id="6" value="POSTRES"></div>
                 </div>
             </form>
 
@@ -329,7 +389,7 @@ $listaLineasPedidos = new ListaLineasPedidos();
                 <div id = "contenedorProductos">
                     <?php
                         for ($i = 0; $i < count($listaProductos->getLista()); $i++) {
-                            echo '<div><input class ="tamanoImagenes" type="image" src="'.$listaProductos->getLista()[$i]->getImagen().'" value ="'.$listaProductos->getLista()[$i]->getReferencia().'"> </div>';
+                            echo '<div><input class ="tamanoImagenes imgHover" type="image" src="'.$listaProductos->getLista()[$i]->getImagen().'" value ="'.$listaProductos->getLista()[$i]->getReferencia().'"> </div>';
 
                         }
 
