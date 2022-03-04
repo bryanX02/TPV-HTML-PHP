@@ -57,7 +57,7 @@ class ListaLineasPedidos
      */
     public function getListaPedidosMesa($idMesa){
 
-        $consulta = "SELECT * FROM " .$this->tabla. " WHERE fidMesa = ".$idMesa.";";
+        $consulta = "SELECT * FROM lineasPedidos WHERE fidMesa = ".$idMesa.";";
         $conexion = new BD();
         $resultado = $conexion->consulta($consulta);
 
@@ -92,6 +92,45 @@ class ListaLineasPedidos
         } while (!$existe && $contador<count($this->lista));
 
         return $existe;
+
+    }
+
+    public function crearFactura ($idMesa, $nombreEmpleado, $fecha, $numeroMesa) {
+
+        $factura = new Factura();
+
+        $consulta = "INSERT INTO facturas VALUES (". $idMesa .", ". $nombreEmpleado . ", ". $fecha . ", ". $numeroMesa . ");";
+        $conexion = new BD();
+        $resultado = $conexion->consulta($consulta);
+
+        if ($resultado->num_rows != 0) {
+
+            echo "Se genero la factura";
+
+            foreach ($this->lista as $lineaPedido) {
+
+                $consulta = "INSERT INTO lineasfacturas VALUES (". $idMesa .", ". $lineaPedido->getNombreProducto() . ", ". $lineaPedido->getFreferenciaProducto(). ", ". $lineaPedido->getPrecioProducto() . ", ". $lineaPedido->getIvaProducto() . ", ". $lineaPedido->getCantidadProducto() . ");";
+                $resultado = $conexion->consulta($consulta);
+
+                if ($resultado->num_rows != 0) {
+
+                    echo "Se inserto la fila de la factura del producto: " . $lineaPedido->getNombreProducto();
+
+                }else {
+
+                    echo "NO se inserto la fila de la factura del producto: " . $lineaPedido->getNombreProducto();
+
+                }
+
+            }
+
+        }else {
+
+            echo "No se pudo generar la factura";
+
+        }
+
+        return $factura;
 
     }
 

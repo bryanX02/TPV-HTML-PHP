@@ -9,6 +9,7 @@ class LineaFactura
     private $refenciaProducto;
     private $precioProducto;
     private $ivaProducto;
+    private $cantidadProducto;
     private $tabla;
 
     /**
@@ -19,7 +20,7 @@ class LineaFactura
      * @param $precioProducto
      * @param $ivaProducto
      */
-    public function __construct($idLineaFactura="", $fnumeroFactura="", $nombreProducto="", $refenciaProducto="", $precioProducto="", $ivaProducto="")
+    public function __construct($idLineaFactura="", $fnumeroFactura="", $nombreProducto="", $refenciaProducto="", $precioProducto="", $ivaProducto="", $cantidadProducto="")
     {
         $this->idLineaFactura = $idLineaFactura;
         $this->fnumeroFactura = $fnumeroFactura;
@@ -27,6 +28,7 @@ class LineaFactura
         $this->refenciaProducto = $refenciaProducto;
         $this->precioProducto = $precioProducto;
         $this->ivaProducto = $ivaProducto;
+        $this->cantidadProducto = $cantidadProducto;
         $this->tabla = "lineasfacturas";
     }
 
@@ -127,6 +129,40 @@ class LineaFactura
     }
 
     /**
+     * @return mixed|string
+     */
+    public function getCantidadProducto()
+    {
+        return $this->cantidadProducto;
+    }
+
+    /**
+     * @param mixed|string $cantidadProducto
+     */
+    public function setCantidadProducto($cantidadProducto)
+    {
+        $this->cantidadProducto = $cantidadProducto;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTabla()
+    {
+        return $this->tabla;
+    }
+
+    /**
+     * @param string $tabla
+     */
+    public function setTabla($tabla)
+    {
+        $this->tabla = $tabla;
+    }
+
+
+
+    /**
      * @param $idLineaFactura
      * @param $fnumeroFactura
      * @param $nombreProducto
@@ -134,7 +170,7 @@ class LineaFactura
      * @param $precioProducto
      * @param $ivaProducto
      */
-    public function llenarLineaFactura($idLineaFactura, $fnumeroFactura, $nombreProducto, $refenciaProducto, $precioProducto, $ivaProducto)
+    public function llenarLineaFactura($idLineaFactura, $fnumeroFactura, $nombreProducto, $refenciaProducto, $precioProducto, $ivaProducto, $cantidadProducto)
     {
         $this->idLineaFactura = $idLineaFactura;
         $this->fnumeroFactura = $fnumeroFactura;
@@ -142,6 +178,7 @@ class LineaFactura
         $this->refenciaProducto = $refenciaProducto;
         $this->precioProducto = $precioProducto;
         $this->ivaProducto = $ivaProducto;
+        $this->cantidadProducto = $cantidadProducto;
 
     }
 
@@ -153,11 +190,11 @@ class LineaFactura
     public function obtenerPorIdLineaFactura($idLineaFactura)
     {
 
-        $sql = "SELECT idLineaFactura, fnumeroFactura, nombreProducto, referenciaProducto, precioProducto, ivaProducto FROM " . $this->tabla . " WHERE idLineaFactura = " . $idLineaFactura;
+        $sql = "SELECT idLineaFactura, fnumeroFactura, nombreProducto, referenciaProducto, precioProducto, ivaProducto, cantidadProducto FROM " . $this->tabla . " WHERE idLineaFactura = " . $idLineaFactura;
         $conexion = new BD();
         $res = $conexion->consulta($sql);
-        list($idLineaFactura, $fnumeroFactura, $nombreProducto, $referenciaProducto, $precioProducto, $ivaProducto) = mysqli_fetch_array($res);
-        $this->llenarLineaFactura($idLineaFactura, $fnumeroFactura, $nombreProducto, $referenciaProducto, $precioProducto, $ivaProducto);
+        list($idLineaFactura, $fnumeroFactura, $nombreProducto, $referenciaProducto, $precioProducto, $ivaProducto, $cantidadProducto) = mysqli_fetch_array($res);
+        $this->llenarLineaFactura($idLineaFactura, $fnumeroFactura, $nombreProducto, $referenciaProducto, $precioProducto, $ivaProducto, $cantidadProducto);
 
     }
 

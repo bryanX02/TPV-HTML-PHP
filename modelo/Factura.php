@@ -154,9 +154,11 @@ class Factura
         $conexion = new BD();
         $res = $conexion->consulta($sql);
         list($idFactura, $numeroFactura, $empleado, $fecha, $numeroMesa) = mysqli_fetch_array($res);
-        $this->llenarEmpleado($idFactura, $numeroFactura, $empleado, $fecha, $numeroMesa);
+        $this->llenarFactura($idFactura, $numeroFactura, $empleado, $fecha, $numeroMesa);
 
     }
+
+
 
 
 }
