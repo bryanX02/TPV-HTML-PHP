@@ -10,6 +10,8 @@ class BD
     private $pass = "";
     private $basedatos = "tpv";
 
+    private $idGenerada = -1;
+
     private $conexion;
     private $resultado;
 
@@ -33,6 +35,19 @@ class BD
     public function consulta($consulta){
         // echo $consulta;
         $this->resultado =   $this->conexion->query($consulta);
+        $res = $this->resultado ;
+        return $res;
+    }
+
+    /**
+     * @param $consulta
+     * @return bool|mysqli_result
+     * Funcion que nos ahorra codigo a la hora de ejecutar una sentencia sql
+     */
+    public function consultaID($consulta){
+        // echo $consulta;
+        $this->resultado =   $this->conexion->query($consulta);
+        $this->idGenerada = $this->conexion->insert_id;
         $res = $this->resultado ;
         return $res;
     }
@@ -85,6 +100,22 @@ class BD
         $res = $this->resultado;
 
         return $res;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdGenerada()
+    {
+        return $this->idGenerada;
+    }
+
+    /**
+     * @param mixed $idGenerada
+     */
+    public function setIdGenerada($idGenerada)
+    {
+        $this->idGenerada = $idGenerada;
     }
 
 

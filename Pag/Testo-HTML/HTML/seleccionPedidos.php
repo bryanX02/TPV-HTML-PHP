@@ -8,11 +8,20 @@ require "../../../modelo/Factura.php";
 
 session_start();
 
+if (isset($_SESSION['idMesa'])) {
+
+    $idMesa = $_SESSION['idMesa'];
+    $listaPedidos = new ListaLineasPedidos();
+    $listaPedidos->getListaPedidosMesa($idMesa);
+    echo $idMesa;
+
+}
+
 $tipo = 1;
-$listaLineasPedidos = new ListaLineasPedidos();
 
 // Comprobamos si se ha seleccionado algun botón del tipo de producto
 if (isset($_POST) && !empty($_POST)){
+
     if(isset($_POST['1'])){
         $tipo = 1;
     } else if (isset($_POST['2'])){
@@ -35,18 +44,24 @@ if (isset($_POST) && !empty($_POST)){
         //$nuevoProducto = new Producto();
     }
 
+    // Nos devuelve el numero de mesa en el que nos encontramos
+    $numMesa = $_SESSION['numMesaActual'];
+
     // Comprobamos si se ha selecionnado el boton de cerrar mesa y generar factura
     if (isset($_POST['generarFactura'])){
 
         /* Hay que validar primero que haya productos en la lista!!
         $factura = new Factura();*/
 
-        header("location:../../../factura.php");
+        echo "hola";
+        if (count($listaPedidos->getLista()) > 0) {
+
+            $idFactura = $listaPedidos->crearFactura($idMesa, "Bryan", $numMesa);
+            header("location:../../../factura.php?idFactura=$idFactura");
+
+        }
 
     }
-
-    // Nos devuelve el numero de mesa en el que nos encontramos
-    $numMesa = $_SESSION['numMesaActual'];
 
 } else {
 
@@ -116,9 +131,8 @@ if (isset($_POST) && !empty($_POST)){
                 <?php
 
                     $conexion = new BD();
-                    $idMesa = null; // Variable donde guardamos la idMesa en uso
-                    $listaPedidos = new ListaLineasPedidos(); // Array donde guardaremos la lista de pedidos que hay en esa lista
 
+                    $listaPedidos = new ListaLineasPedidos();
 
                     // Comprobamos si la mesa está en uso
                     if (!$conexion->comprobarMesaOcupada($numMesa)){ // Si NO está en uso
@@ -129,6 +143,7 @@ if (isset($_POST) && !empty($_POST)){
                     } else { // Si está en uso
                         // Guardamos la id del registro mesa
                         $idMesa = $conexion->getIdMesaOcupada($numMesa);
+                        $_SESSION['idMesa'] = $idMesa;
 
                         // Obtenemos la lista de pedidos (en el atributo lista)
                         $listaPedidos->getListaPedidosMesa($idMesa);

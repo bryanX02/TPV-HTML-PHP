@@ -97,12 +97,12 @@ class ListaLineasPedidos
 
     public function crearFactura ($idMesa, $nombreEmpleado, $numeroMesa) {
 
-        $factura = new Factura();
+        $idGenerado = -1;
 
         $consulta = "INSERT INTO facturas (numeroFactura, empleado, fecha, numeroMesa) VALUES (". $idMesa .", '". $nombreEmpleado . "', now(), ". $numeroMesa . ");";
         echo $consulta;
         $conexion = new BD();
-        $resultado = $conexion->consulta($consulta);
+        $resultado = $conexion->consultaID($consulta);
 
         // Cunado la consulta es un insert, $resultado guarda un boolean del resultado
         if ($resultado) {
@@ -133,7 +133,7 @@ class ListaLineasPedidos
 
         }
 
-        return $factura;
+        return $conexion->getIdGenerada();
 
     }
 

@@ -17,10 +17,11 @@ $listaLineasPedidos->getListaPedidosMesa(2);
 
 $factura = $listaLineasPedidos->crearFactura(2, $empleado->getNombre(), 2);
 */
+
 /* Esto es lo que habría que hacer con una id que llegara con post*/
 // Creo la factura y la obtengo de la bd
 $factura = new Factura();
-$factura->obtenerPorIdFactura(2);
+$factura->obtenerPorIdFactura($_GET['idFactura']);
 
 /* Obtenermos la fecha y hora */
 $fecha = substr($factura->getFecha(), 0, 10);
@@ -36,8 +37,6 @@ $pdf->SetTitle("FACTURA", true);
 $pdf->AddPage();
 $pdf->SetAutoPageBreak(true, 1);
 $pdf->Image('./Pag/Testo-HTML/HTML/images/logo-01.png',10,10,90);
-
-// ME QUEDA OBTENER LA HOJA Y EL ALBARAN, Y CREAR EL FORMULARIO
 
 // TITULO
 $pdf->SetFont('Arial', 'B', 15);
@@ -60,14 +59,14 @@ $pdf->SetFont('Arial', 'B', 15);
 
 // DATOS DE LA FACTURA
 $pdf->Cell(5);
-$pdf->Cell(134, 10, utf8_decode("TIQUET  T00" . $factura->getNumeroFactura()), 0, 0, 'L', 0);
+$pdf->Cell(134, 10, utf8_decode("TICKET  T00" . $factura->getNumeroFactura()), 0, 0, 'L', 0);
 $pdf->Cell(50, 10, utf8_decode("Fecha:  " . $fecha), 0, 1, 'L', 0);
 
 $pdf->Ln(2);
 
 $pdf->SetFont('Arial', 'B', 24);
 $pdf->Cell(5);
-$pdf->Cell(142, 10, utf8_decode("MESA 1"), 0, 0, 'L', 0);
+$pdf->Cell(142, 10, utf8_decode("MESA " . $factura->getNumeroMesa()), 0, 0, 'L', 0);
 
 $pdf->SetFont('Arial', 'B', 15);
 $pdf->Cell(20, 10, utf8_decode("Hora:  " . $hora), 0, 1, 'L', 0);
