@@ -1,3 +1,19 @@
+<?php
+
+session_start();
+
+if (empty($_SESSION)) {
+
+    header("location:index.php");
+
+}else {
+
+    $empleado = $_SESSION['empleado'];
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -74,7 +90,7 @@
 				
 					<!-- LOGO IMAGE -->
 	                <div class="logo" data-mobile-logo="images/logo-01.png" data-sticky-logo="images/logo-01.png">
-	                	<a href="#hero-1"><img src="images/logo-01.png" alt="header-logo"/></a>
+	                	<a href="index.php"><img src="images/logo-01.png" alt="header-logo"/></a>
 					</div>
 
 					<!-- MENU PRINCIPAL -->
@@ -82,11 +98,11 @@
 	                	<ul class="top-list">	
 							
 							<!-- MENÚ DESPEGABLE -->
-	                		<li><a href="mesas.html">ELEGIR MESA</a>
+	                		<li><a href="mesas.php">ELEGIR MESA</a>
 	                		</li>
 
 							<!-- MENÚ DESPEGABLEU -->
-	                		<li><a href="index.html">MENÚ</a>
+	                		<li><a href="index.php">MENÚ</a>
 	                		</li>
 	                    </ul>
 	                </nav>	<!--FINAL MENU PRINCIPAL -->
@@ -94,175 +110,44 @@
 			</div>     <!-- FINAL CONTENEDOR -->
 		</header>	<!-- FINAL HEADER-1 -->
 
+		<br>
+		<br>
+		<br>
 
-		<!-- CONTENIDO DE LA PÁGINA
-		============================================= -->	
-		<div id="page" class="page">
-
-			<!-- HERO-1
-			============================================= -->	
-			<section id="hero-1" class="hero-section division">
-
-				<!-- SLIDER -->
-				<div class="slider">
-			    	<ul class="slides">
-
-				     	<!-- SLIDE #1 -->
-				      	<li id="slide-1">
-
-					        <!-- Background Imagen -->
-				        	<img src="images/slider/hamburguesa-demo1.jpg" alt="slide-background">
-
-							<!-- Image texto -->
-		       				<div class="caption d-flex align-items-center center-align">
-		       					<div class="container">
-		       						<div class="row">
-		       							<div class="col-md-12">    
-		       								<div class="caption-txt white-color">
-
-						       					<!--Titulo -->
-								              	<div class="title"><h2>Good Time, Great Taste</h2></div>
-
-								              	<!-- Texto -->
-												<p>Abierto: <span class="yellow-color">11:30PM - 8:30PM</span></p>
-
-											</div>
-										</div>
-									</div>  <!-- Final row -->
-								</div>  <!-- Final container -->
-					        </div>	<!-- Final Texto de la imagen -->
-					    </li>	<!-- Final SLIDE #1 -->
-
-
-				      	<!-- SLIDE #2 -->
-				      	<li id="slide-2">
-
-				        	<!-- Background Imagen -->
-				        	<img src="images/slider/hamburguesa2_demo1.jpg" alt="slide-background">
-
-							<!-- Image texto -->
-	        				<div class="caption d-flex align-items-center center-align">
-	        					<div class="container">
-		       						<div class="row">
-		       							<div class="col-md-12">    
-		       								<div class="caption-txt white-color">
-
-								              	<!-- Titulo -->
-								              	<div class="title"><h2>Descubre las mejores hamburguesas</h2></div>
-
-								              	<!-- Texto -->
-												<p>Disfruta la comida que amas <span class="yellow-color">DESDE 6.99</span></p>
-
-											</div>	
-				         				</div>
-									</div>  <!-- Final row -->
-								</div>  <!-- Final contenedor -->
-					        </div>	<!-- Final texto de imagen -->
-				     	</li>	<!-- Final SLIDE #2 -->
-
-
-				     	<!-- SLIDE #3 -->
-				      	<li id="slide-3">
-
-				      		<!-- Background Imagen -->
-				        	<img src="images/slider/nachos_demo1.jpg" alt="slide-background">
-
-				        	<!-- Imagen texto -->
-		       			 	<div class="caption d-flex align-items-center center-align">
-		       			 		<div class="container">
-		       						<div class="row">
-		       							<div class="col-md-12">    
-		       								<div class="caption-txt white-color">
-
-								              	<!-- titulo -->
-								              	<div class="title"><h2>VARIEDAD</h2></div>
-								              	<!-- texto -->
-												<p>Delivery: <span class="yellow-color"><a href="tel:123456789">789-654-3210</a></span></p>
-											</div>
-					        			</div>
-									</div>  <!-- Final row -->
-								</div>  <!-- Final contenedor -->
-					        </div>	<!-- Final texto de imagen-->
-				     	</li>	<!-- Final SLIDE #3 -->
-				    </ul>
-			  	</div>	<!-- Final SLIDER -->
-			</section>	<!-- FInale HERO-1 -->	
-
-			<!-- ABOUT-3
+			<!-- MENU-6
 			============================================= -->
-			<section id="about-3" class="wide-60 about-section division">
+			<section id="menu-6" class="wide-70 menu-section division">
 				<div class="container">
-					<div class="row d-flex align-items-center">
 
+                    <!-- SECCIÓN TITULO -->
+                    <div class="row">
+                        <div class="col-lg-10 offset-lg-1">
+                            <div class="section-title mb-60 text-center">
 
-						<!-- MEDIO IMAGEN -->
-						<div class="col-md-5 col-lg-6">
-							<div class="about-3-img text-center mb-40">
-								<img class="img-fluid" src="images/hamburguesamenu.jpg" alt="about-image">
-							</div>
-						</div>
+                                <!-- titulo 	-->
+                                <h2 class="h2-xl red-color">Elige una mesa </h2>
 
-			<!-- MEDIO TEXT -->
-			<div class="col-md-7 col-lg-6">
-				<div class="about-3-txt mb-40">
+                                <!-- Texto -->
+                                <p class="p-xl">Selecciona la mesa de tu preferencia para empezar a pedir tu comida!
+                                </p>
 
-					<!-- Titulo -->	
-					<h2 class="h2-sm coffee-color">Nada une a las personas como una buena hamburguesa</h2>
+                                <img class="centrado" src="images/mesas.jpg" usemap="#image-map" alt="" width="747" height="747">
 
-					<!-- Texto -->
-					<p class="p-md grey-color">TEXTO
-					</p>
+                                <map name ="image-map">
+                                    <area shape="rect" alt="" title="" coords="34,46,178,276" href="seleccionPedidos.php?numMesa=1&empleado=<?php echo $empleado?>" target="" />
+                                    <area shape="rect" alt="" title="" coords="270,44,474,284" href="seleccionPedidos.php?numMesa=2&empleado=<?php echo $empleado?>" target="" />
+                                    <area shape="rect" alt="" title="" coords="584,46,688,292" href="seleccionPedidos.php?numMesa=3&empleado=<?php echo $empleado?>" target="" />
+                                    <area shape="rect" alt="" title="" coords="326,374,424,614" href="seleccionPedidos.php?numMesa=4&empleado=<?php echo $empleado?>" target="" />
+                                    <area shape="rect" alt="" title="" coords="32,486,244,726" href="seleccionPedidos.php?numMesa=5&empleado=<?php echo $empleado?>" target="" />
+                                    <area shape="rect" alt="" title="" coords="526,486,688,722" href="seleccionPedidos.php?numMesa=6&empleado=<?php echo $empleado?>" target="" />
+                                </map>
+                            </div>
+                        </div>
+                    </div>
+                </div>	 <!-- Final row -->
+                </div>	 <!-- Final contenedor -->
+            </section>	<!-- Final BANNER-2 -->
 
-					<!-- Icono List -->
-					<div class="abox-2-wrapper ico-70">
-						<div class="row text-center">
-							<!-- MEDIO BOX #1 -->		
-							<div class="col-sm-3">
-								<div class="abox-2">
-									<!-- icono --> 
-									<div class="abox-2-ico grey-color"><span class="flaticon-burger"></span></div>
-									<!-- Texto -->
-									<h6 class="h6-lg">Hamburguesas</h6>
-								</div>
-							</div>
-
-							<!-- MEDIO BOX #2 -->		
-							<div class="col-sm-3">
-								<div class="abox-2">
-									<!-- Icono --> 
-									<div class="abox-2-ico grey-color"><span class="flaticon-french-fries"></span></div>
-									<!-- Texto -->
-									<h6 class="h6-lg">Fritura</h6>
-
-								</div>
-							</div>
-
-							<!-- MEDIO BOX #3 -->		
-							<div class="col-sm-3">
-								<div class="abox-2">
-									<!-- Icono --> 
-									<div class="abox-2-ico grey-color"><span class="flaticon-fried-chicken"></span></div>
-									<!-- Texto -->
-									<h6 class="h6-lg">Entrantes</h6>
-								</div>
-							</div>
-
-							<!-- MEDIO BOX #4 -->		
-							<div class="col-sm-3">
-								<div class="abox-2">
-									<!-- Icono --> 
-									<div class="abox-2-ico grey-color"><span class="flaticon-salad"></span></div>
-									<!-- Texto -->
-									<h6 class="h6-lg">Ensaladas</h6>
-								</div>
-							</div>
-						</div>
-					</div>	<!-- End Iconos List -->
-					</div>
-				</div>	<!-- FINAL MEDIO TEXTO -->	
-				</div>	   <!-- FINAL row -->
-				</div>	   <!-- FINAL contenedor -->
-			</section>	<!-- FINAL MEDIO-3 -->
 
 			<!-- BANNER-3
 			============================================= -->
@@ -368,6 +253,7 @@
 														
 							</div>
 						</div>	<!-- FINAL FOOTER IMAGEN -->
+
 
 					</div>	  <!-- Final row -->
 				</div>	   <!-- Final contenedor -->										

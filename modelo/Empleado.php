@@ -1,5 +1,7 @@
 <?php
 
+require ('BD.php');
+
 class Empleado
 {
 

@@ -17,6 +17,20 @@ if (isset($_SESSION['idMesa'])) {
 
 }
 
+if (isset($_POST['empleado'])) {
+
+    $_SESSION['empleado'] = $_POST['empleado'];
+
+}else {
+    $empleado = "Pepe";
+}
+
+if (isset($_SESSION['empleado'])) {
+
+    $empleado = $_SESSION['empleado'];
+
+}
+
 if (!empty($_SESSION['tipo'])){
     $tipo = $_SESSION['tipo'];
 } else {
@@ -70,15 +84,11 @@ if (isset($_POST) && !empty($_POST)){
     // Comprobamos si se ha selecionnado el boton de cerrar mesa y generar factura
     if (isset($_POST['generarFactura'])){
 
-        /* Hay que validar primero que haya productos en la lista!!
-        $factura = new Factura();*/
-
-        echo "hola";
         if (count($listaPedidos->getLista()) > 0) {
 
             $idFactura = $listaPedidos->crearFactura($idMesa, "Bryan", $numMesa);
             $conexion->cerrarMesa($idMesa);
-            header("location:../factura.php?idFactura=$idFactura");
+            header("location:../factura.php?idFactura=$idFactura&empleado=$empleado");
 
         }
 
@@ -136,8 +146,8 @@ if (isset($_POST) && !empty($_POST)){
 
         <!-- Información de la mesa -->
         <div id = "contenedorInformacionMesa">
-            <a href="mesas.html"><img class="btnVolver" alt="boton de volver" src="images/btnVolver.png" ></a>
-            <p>Camarero: Bryan Quilumba</p>
+            <a href="mesas.php"><img class="btnVolver" alt="boton de volver" src="images/btnVolver.png" ></a>
+            <p>Camarero: <?php echo $empleado?></p>
             <p>Mesa: <?php echo $numMesa?></p>
         </div>
 
