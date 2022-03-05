@@ -1,6 +1,6 @@
 <?php
 
-require('../fpdf183/fpdf.php');
+require('fpdf183/fpdf.php');
 require ('modelo/BD.php');
 require ('modelo/Empleado.php');
 require('modelo/Factura.php');
