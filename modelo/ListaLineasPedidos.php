@@ -152,5 +152,27 @@ class ListaLineasPedidos
 
     }
 
+    public function resLineaPedido($referenciaProducto, $idMesa){
+
+        $conexion = new BD();
+
+        if ($this->comprobarExisteReferenciaPedido($referenciaProducto)){
+            $sql = "UPDATE " .$this->tabla. " SET cantidadProducto = cantidadProducto + 1 WHERE freferenciaProducto = '" . $referenciaProducto."'";
+            $res = $conexion->consulta($sql);
+            $sql = "UPDATE " .$this->tabla. " SET cantidadProducto = cantidadProducto + 1 WHERE freferenciaProducto = '" . $referenciaProducto."'";
+
+        } else {
+
+            $producto = new Producto();
+            $producto->obtenerPorRefProducto($referenciaProducto);
+
+            $sql = "DELETE INTO " .$this->tabla. " (fidMesa, freferenciaProducto, tipoProducto, nombreProducto, descripcionProducto, precioProducto, ivaProducto, cantidadProducto) values (".$idMesa.", '".$referenciaProducto."', ".$producto-> getTipo().",'".$producto-> getNombre()."', '".$producto-> getDescripcion()."', ".$producto-> getPrecio().", ".$producto-> getIva().", 1)";
+
+        }
+
+        $conexion->consulta($sql);
+
+    }
+
 
 }

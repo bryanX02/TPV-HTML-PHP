@@ -26,6 +26,16 @@ if (!empty($_SESSION['tipo'])){
 // Comprobamos si se ha seleccionado algun botón del tipo de producto
 if (isset($_POST) && !empty($_POST)){
 
+    if(isset($_POST['editRestar'])){
+        echo $_POST['editRestar'];
+
+
+    }
+
+    if(isset($_POST['editSumar'])){
+        $_POST['editSumar']
+    }
+
     if(isset($_POST['1'])){
         $tipo = 1;
 
@@ -179,7 +189,7 @@ if (isset($_POST) && !empty($_POST)){
                             echo'<div class="columNombre separacionInferior">'.$listaPedidos->getLista()[$i]->getNombreProducto().'</div>';
                             echo'<div class="columUnids separacionInferior">'.$listaPedidos->getLista()[$i]->getCantidadProducto().'</div>';
                             echo'<div class="columEdit flexBotones separacionInferior">
-                                    <button class="arregloBoton" type="submit" name="editRestar" value="'.$listaPedidos->getLista()[$i]->getfreferenciaProducto().'"><img class="imgBotonesEdit" src="images/btnRestar.png" alt="boton de restar"></button>                                                 
+                                    <button class = "arregloBoton" type="submit" name="editRestar" value="'.$listaPedidos->getLista()[$i]->getfreferenciaProducto().'"><img class="imgBotonesEdit" src="images/btnRestar.png" alt="boton de restar"></button>                                                 
                                     <button class = "arregloBoton" type="submit" name="editSumar" value="'.$listaPedidos->getLista()[$i]->getfreferenciaProducto().'"><img class="imgBotonesEdit" src="images/btnSumar.png" alt="boton de sumar"></button>
                                 </div>';
 
