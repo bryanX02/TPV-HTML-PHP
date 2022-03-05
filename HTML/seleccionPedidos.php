@@ -84,12 +84,20 @@ if (isset($_POST) && !empty($_POST)){
         /* Hay que validar primero que haya productos en la lista!!
         $factura = new Factura();*/
 
-        echo "hola";
+
         if (count($listaPedidos->getLista()) > 0) {
 
             $idFactura = $listaPedidos->crearFactura($idMesa, $empleado, $numMesa);
             $conexion->cerrarMesa($idMesa);
-            header("location:../factura.php?idFactura=$idFactura&empleado=$empleado");
+
+            ?>
+            <script>
+            window.open("../factura.php?idFactura='<?php echo $idFactura?>'&empleado='<?php echo$empleado?>");
+            location.href = 'mesas.php';
+            </script>
+
+            <?php
+            //header("location:../factura.php?idFactura=$idFactura&empleado=$empleado");
 
         }
 
@@ -148,7 +156,7 @@ if (isset($_POST) && !empty($_POST)){
         <!-- Información de la mesa -->
         <div id = "contenedorInformacionMesa">
             <a href="mesas.php"><img class="btnVolver" alt="boton de volver" src="images/btnVolver.png" ></a>
-            <p>Camarero: Bryan Quilumba</p>
+            <p>Camarero: <?php echo $empleado ?></p>
             <p>Mesa: <?php echo $numMesa?></p>
         </div>
 
