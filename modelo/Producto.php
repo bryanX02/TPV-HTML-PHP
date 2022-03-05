@@ -237,7 +237,7 @@ class Producto
         $conexion = new BD();
         $res = $conexion->consulta($sql);
         list($idProducto, $tipo, $nombre, $referencia, $descripcion, $stock, $precio, $iva, $imagen) = mysqli_fetch_array($res);
-        $this->llenarEmpleado($idProducto, $tipo, $nombre, $referencia, $descripcion, $stock, $precio, $iva, $imagen);
+        $this->llenarProducto($idProducto, $tipo, $nombre, $referencia, $descripcion, $stock, $precio, $iva, $imagen);
 
     }
 

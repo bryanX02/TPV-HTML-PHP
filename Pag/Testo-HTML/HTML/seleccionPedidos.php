@@ -11,37 +11,47 @@ session_start();
 $tipo = 1;
 $listaLineasPedidos = new ListaLineasPedidos();
 
-    if (isset($_POST) && !empty($_POST)){
-        if(isset($_POST['1'])){
-            $tipo = 1;
-        } else if (isset($_POST['2'])){
-            $tipo = 2;
-        } else if (isset($_POST['3'])){
-            $tipo = 3;
-        } else if (isset($_POST['4'])){
-            $tipo = 4;
-        } else if (isset($_POST['5'])){
-            $tipo = 5;
-        } else if (isset($_POST['6'])){
-            $tipo = 6;
-        }
-
-        if (isset($_POST['generarFactura'])){
-
-            // Hay que validar primero que haya productos en la lista!!
-            $factura = new Factura();
-
-        }
-
-        // Nos devuelve el numero de mesa en el que nos encontramos
-        $numMesa = $_SESSION['numMesaActual'];
-
-    } else {
-
-        // Nos guarda el numero de mesa que llega por el get a su variable y tambien en el sesion para cuando actualice pagine sepamos en que mesa seguimos
-        $numMesa = $_GET['numMesa'];
-        $_SESSION['numMesaActual'] = $numMesa;
+// Comprobamos si se ha seleccionado algun botón del tipo de producto
+if (isset($_POST) && !empty($_POST)){
+    if(isset($_POST['1'])){
+        $tipo = 1;
+    } else if (isset($_POST['2'])){
+        $tipo = 2;
+    } else if (isset($_POST['3'])){
+        $tipo = 3;
+    } else if (isset($_POST['4'])){
+        $tipo = 4;
+    } else if (isset($_POST['5'])){
+        $tipo = 5;
+    } else if (isset($_POST['6'])){
+        $tipo = 6;
     }
+
+    print_r($_POST);
+
+    // Comprobamos si se ha seleccionado algun producto HAY QUE ARREGLAR ESTO, ya que nos llegan cordenadas
+    if (isset($_POST['productoElegido'])){
+        echo $_POST['productoElegido'];
+        //$nuevoProducto = new Producto();
+    }
+
+    // Comprobamos si se ha selecionnado el boton de cerrar mesa y generar factura
+    if (isset($_POST['generarFactura'])){
+
+        // Hay que validar primero que haya productos en la lista!!
+        $factura = new Factura();
+
+    }
+
+    // Nos devuelve el numero de mesa en el que nos encontramos
+    $numMesa = $_SESSION['numMesaActual'];
+
+} else {
+
+    // Nos guarda el numero de mesa que llega por el get a su variable y tambien en el sesion para cuando actualice pagine sepamos en que mesa seguimos
+    $numMesa = $_GET['numMesa'];
+    $_SESSION['numMesaActual'] = $numMesa;
+}
 
 ?>
 
@@ -189,6 +199,10 @@ $listaLineasPedidos = new ListaLineasPedidos();
             flex-flow: row wrap;
             justify-content:space-around;
 
+            /* POR SI QUEREMOS AÑADIR EL SCROLL
+            height: 402px;
+            overflow-x: scroll;
+            */
 
 
         }
@@ -385,22 +399,30 @@ $listaLineasPedidos = new ListaLineasPedidos();
 
             ?>
 
-            <form name="productoElegido" action="<?php echo $_SERVER['PHP_SELF']?>" method="post" enctype="multipart/form-data">
+            <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post" enctype="multipart/form-data">
                 <div id = "contenedorProductos">
                     <?php
+                        $contador = 0;
                         for ($i = 0; $i < count($listaProductos->getLista()); $i++) {
-                            echo '<div><input class ="tamanoImagenes imgHover" type="image" src="'.$listaProductos->getLista()[$i]->getImagen().'" value ="'.$listaProductos->getLista()[$i]->getReferencia().'"> </div>';
+                            if($listaProductos->getLista()[$i]->getStock() > 0){ // Si hay stock del producto
+                                echo '<div><input name="productoElegido" alt ="imagenProducto" class ="tamanoImagenes imgHover" type="image" src="'.$listaProductos->getLista()[$i]->getImagen().'" value ="'.$listaProductos->getLista()[$i]->getReferencia().'"> </div>';
+                                //echo $listaProductos->getLista()[$i]->getReferencia();
+                            } else { // Si no hay stock no se muestra
+                                echo '<div></div>';
 
+                            }
+                            $contador++;
+                        }
+
+                        // Bucle para terminar de rellenar la cuadricula
+                        while ($contador < 9){
+                            echo '<div></div>';
+                            $contador++;
                         }
 
                     ?>
                 </div>
             </form>
-
-
-
-
-
 
         </div>
 
