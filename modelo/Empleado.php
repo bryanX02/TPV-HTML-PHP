@@ -139,7 +139,6 @@ class Empleado
             $_SESSION['idEmpleado'] = $idEmpleado;
             $_SESSION['nombre'] = $nombre;
             $_SESSION['user'] = $user;
-            $_SESSION['pass'] = $pass;
             $existe = true;
         }
 

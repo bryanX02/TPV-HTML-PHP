@@ -12,7 +12,7 @@ if (isset($_POST) && !empty($_POST)) {
     if ($empleado -> login($user, $pass)){
 
         session_start();
-        $_SESSION['empleado'] = $user;
+        //$_SESSION['nombre'] = $user;
         header("location:mesas.php");
 
     }else{

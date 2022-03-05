@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-03-2022 a las 20:57:03
+-- Tiempo de generación: 05-03-2022 a las 21:08:01
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.11
 
@@ -39,11 +39,11 @@ CREATE TABLE `empleados` (
 --
 
 INSERT INTO `empleados` (`idEmpleado`, `nombre`, `user`, `pass`) VALUES
-(1, 'Bryan', '02bryanX', '81dc9bdb52d04dc20036dbd8313ed055'),
+(1, 'Bryan Quilumba', '02bryanX', '81dc9bdb52d04dc20036dbd8313ed055'),
 (2, 'Chema', 'chema', '81dc9bdb52d04dc20036dbd8313ed055'),
 (3, 'Belem', 'belem', '81dc9bdb52d04dc20036dbd8313ed055'),
-(4, 'Sergio', 'sergio', '81dc9bdb52d04dc20036dbd8313ed055'),
-(5, 'Lazaro', 'lazaro', '631f570cae53805efcf0987d6aa02c6b');
+(4, 'Sergio Serrano', 'sergio', '81dc9bdb52d04dc20036dbd8313ed055'),
+(5, 'Lazaro Escudero', 'lazaro', '81dc9bdb52d04dc20036dbd8313ed055');
 
 -- --------------------------------------------------------
 
@@ -90,7 +90,8 @@ INSERT INTO `facturas` (`idFactura`, `numeroFactura`, `empleado`, `fecha`, `nume
 (24, 28, '02bryanX', '2022-03-05 20:51:44', 1),
 (25, 7, '02bryanX', '2022-03-05 20:54:09', 1),
 (26, 7, '02bryanX', '2022-03-05 20:54:56', 1),
-(27, 32, '02bryanX', '2022-03-05 20:55:51', 1);
+(27, 32, '02bryanX', '2022-03-05 20:55:51', 1),
+(28, 7, 'Bryan', '2022-03-05 21:07:05', 1);
 
 -- --------------------------------------------------------
 
@@ -600,7 +601,33 @@ INSERT INTO `lineasfacturas` (`idLineaFactura`, `fnumeroFactura`, `nombreProduct
 (485, 7, 'TARTA DE QUESO', 'POS1', 4, 10, 3),
 (486, 32, 'COCACOLA', 'REF1', 1.5, 21, 1),
 (487, 32, 'MOUNTAIN DEW', 'REF7', 2, 21, 1),
-(488, 32, 'SPRITE', 'REF8', 1.5, 21, 4);
+(488, 32, 'SPRITE', 'REF8', 1.5, 21, 4),
+(489, 7, 'AQUARIUS', 'REF16', 1.5, 21, 1),
+(490, 7, 'CERVEZA ESTRELLA GALICIA', 'REF14', 1.2, 21, 1),
+(491, 7, 'COCACOLA', 'REF1', 1.5, 21, 7),
+(492, 7, 'COCACOLA ZERO', 'REF2', 1.5, 21, 10),
+(493, 7, 'FANTA NARANJA', 'REF4', 1.5, 21, 4),
+(494, 7, 'HEINEKEN', 'REF15', 3, 21, 2),
+(495, 7, 'MOUNTAIN DEW', 'REF7', 2, 21, 4),
+(496, 7, 'RED BULL', 'REF17', 2.1, 21, 1),
+(497, 7, 'SPRITE', 'REF8', 1.5, 21, 14),
+(498, 7, 'BACON & CHEESE', 'COM4', 4.3, 10, 6),
+(499, 7, 'BATATAS', 'COM3', 3.5, 10, 2),
+(500, 7, 'PATATAS FRITAS', 'COM1', 3, 10, 7),
+(501, 7, 'PATATAS GAJO', 'COM2', 3, 10, 4),
+(502, 7, 'HAMBURGUESA CHIPOTLE', 'HAM4', 9.2, 10, 5),
+(503, 7, 'HAMBURGUESA EDAMAMI', 'HAM9', 8, 10, 1),
+(504, 7, 'HAMBURGUESA KEVIN CHICK', 'HAM6', 10, 10, 3),
+(505, 7, 'HAMBURGUESA LA GRETA', 'HAM1', 9.75, 10, 8),
+(506, 7, 'HAMBURGUESA LA KIKI', 'HAM7', 9.2, 10, 2),
+(507, 7, 'HAMBURGUESA LA SMOKE', 'HAM2', 8.5, 10, 9),
+(508, 7, 'HAMBURGUESA PIGMA', 'HAM3', 9, 10, 3),
+(509, 7, 'HAMBURGUESA POLLOTARIANA', 'HAM5', 9, 10, 9),
+(510, 7, 'HAMBURGUESA YANKEE', 'HAM8', 8.5, 10, 1),
+(511, 7, 'FROZEN', 'POS2', 3.5, 10, 4),
+(512, 7, 'FROZEN BOMB', 'POS3', 4, 10, 2),
+(513, 7, 'ICAKE', 'POS4', 3.5, 10, 2),
+(514, 7, 'TARTA DE QUESO', 'POS1', 4, 10, 3);
 
 -- --------------------------------------------------------
 
@@ -788,9 +815,10 @@ INSERT INTO `mesas` (`idMesa`, `numero`, `estado`) VALUES
 (4, 5, 1),
 (5, 4, 1),
 (6, 1, 0),
-(7, 1, 1),
+(7, 1, 0),
 (26, 2, 0),
-(27, 2, 0);
+(27, 2, 0),
+(34, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -903,13 +931,13 @@ ALTER TABLE `empleados`
 -- AUTO_INCREMENT de la tabla `facturas`
 --
 ALTER TABLE `facturas`
-  MODIFY `idFactura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `idFactura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `lineasfacturas`
 --
 ALTER TABLE `lineasfacturas`
-  MODIFY `idLineaFactura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=489;
+  MODIFY `idLineaFactura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=515;
 
 --
 -- AUTO_INCREMENT de la tabla `lineaspedidos`
@@ -921,7 +949,7 @@ ALTER TABLE `lineaspedidos`
 -- AUTO_INCREMENT de la tabla `mesas`
 --
 ALTER TABLE `mesas`
-  MODIFY `idMesa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `idMesa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`

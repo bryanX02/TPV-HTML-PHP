@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-$empleado = $_SESSION['empleado'];
+$empleado = $_SESSION['nombre'];
 
 ?>
 
