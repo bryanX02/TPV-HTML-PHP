@@ -28,6 +28,22 @@ class BD
     }
 
     /**
+     * @return mixed
+     */
+    public function getIdGenerada()
+    {
+        return $this->idGenerada;
+    }
+
+    /**
+     * @param mixed $idGenerada
+     */
+    public function setIdGenerada($idGenerada)
+    {
+        $this->idGenerada = $idGenerada;
+    }
+
+    /**
      * @param $consulta
      * @return bool|mysqli_result
      * Funcion que nos ahorra codigo a la hora de ejecutar una sentencia sql
@@ -102,21 +118,16 @@ class BD
         return $res;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getIdGenerada()
-    {
-        return $this->idGenerada;
+    public function cerrarMesa($idMesa){
+        $sql = "UPDATE mesas SET estado = 0 WHERE idMesa = '" . $idMesa."'";
+        $this->resultado = $this->conexion->query($sql);
+
     }
 
-    /**
-     * @param mixed $idGenerada
-     */
-    public function setIdGenerada($idGenerada)
-    {
-        $this->idGenerada = $idGenerada;
-    }
+
+
+
+
 
 
 

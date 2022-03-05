@@ -2,6 +2,7 @@
 * {
 
     font-family: 'Roboto', Arial, Verdana, sans-serif;
+
 }
 
 /*COLORES DEL PROYECYO*/
@@ -79,10 +80,39 @@
 }
 
 #listado{
+    font-size: 0.9em;
     border: 2px solid gray;
+    border-radius: 4px;
+    padding: 4px;
     margin: 0 auto;
     width: 90%;
     height: 82%;
+    overflow-y: scroll;
+    display: flex;
+    flex-flow: row wrap;
+    align-content: flex-start;
+
+}
+
+.editCampos{
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.columNombre{
+    width: 60%;
+
+}
+
+.columUnids{
+    width: 20%;
+    text-align: center;
+
+}
+
+.columEdit{
+    width: 18%;
+    text-align: center;
 
 }
 
@@ -120,8 +150,8 @@
 
     /* POR SI QUEREMOS AÑADIR EL SCROLL
     height: 402px;
-    overflow-x: scroll;
-    */
+    overflow-x: scroll;*/
+
 
 
 }
@@ -130,6 +160,8 @@
     width: 120px;
     display: block;
     margin: 0 auto;
+    cursor: pointer;
+
 }
 
 .imgHover:hover {
@@ -182,6 +214,7 @@
 
 .btnImagen {
     width:10%;
+
 }
 
 .btnImprimir {
@@ -214,4 +247,28 @@
 
 .btnVolver{
     width: 40px;
+}
+
+.arregloBoton{
+    border: 0;
+    display: block;
+    margin: 0 auto;
+    background: transparent;
+    cursor: pointer;
+}
+
+.imgBotonesEdit{
+    width: 12px;
+
+}
+
+
+.flexBotones{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+.separacionInferior{
+    margin-bottom: 3px;
 }

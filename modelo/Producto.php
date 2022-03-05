@@ -25,7 +25,7 @@ class Producto
      * @param $iva
      * @param $imagen
      */
-    public function __construct($idProducto, $tipo, $nombre, $referencia, $descripcion, $stock, $precio, $iva, $imagen)
+    public function __construct($idProducto="", $tipo="", $nombre="", $referencia="", $descripcion="", $stock="", $precio="", $iva="", $imagen="")
     {
         $this->idProducto = $idProducto;
         $this->tipo = $tipo;
@@ -234,6 +234,22 @@ class Producto
     {
 
         $sql = "SELECT * FROM " . $this->tabla . " WHERE idProducto = " . $idProducto;
+        $conexion = new BD();
+        $res = $conexion->consulta($sql);
+        list($idProducto, $tipo, $nombre, $referencia, $descripcion, $stock, $precio, $iva, $imagen) = mysqli_fetch_array($res);
+        $this->llenarProducto($idProducto, $tipo, $nombre, $referencia, $descripcion, $stock, $precio, $iva, $imagen);
+
+    }
+
+    /**
+     * @param $idProducto
+     *
+     * Metodo que empleo para obtener un producto en concreto, por su id
+     */
+    public function obtenerPorRefProducto($referencia)
+    {
+
+        $sql = "SELECT * FROM " . $this->tabla . " WHERE referencia = '" . $referencia."'";
         $conexion = new BD();
         $res = $conexion->consulta($sql);
         list($idProducto, $tipo, $nombre, $referencia, $descripcion, $stock, $precio, $iva, $imagen) = mysqli_fetch_array($res);

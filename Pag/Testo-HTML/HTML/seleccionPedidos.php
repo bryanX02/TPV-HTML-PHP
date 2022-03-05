@@ -7,23 +7,28 @@ require "../../../modelo/Producto.php";
 require "../../../modelo/Factura.php";
 
 session_start();
+$conexion = new BD();
 
 if (isset($_SESSION['idMesa'])) {
 
     $idMesa = $_SESSION['idMesa'];
     $listaPedidos = new ListaLineasPedidos();
     $listaPedidos->getListaPedidosMesa($idMesa);
-    echo $idMesa;
 
 }
 
-$tipo = 1;
+if (!empty($_SESSION['tipo'])){
+    $tipo = $_SESSION['tipo'];
+} else {
+    $tipo = 1;
+}
 
 // Comprobamos si se ha seleccionado algun botón del tipo de producto
 if (isset($_POST) && !empty($_POST)){
 
     if(isset($_POST['1'])){
         $tipo = 1;
+
     } else if (isset($_POST['2'])){
         $tipo = 2;
     } else if (isset($_POST['3'])){
@@ -36,16 +41,18 @@ if (isset($_POST) && !empty($_POST)){
         $tipo = 6;
     }
 
-    print_r($_POST);
+    $_SESSION['tipo'] = $tipo;
 
-    // Comprobamos si se ha seleccionado algun producto HAY QUE ARREGLAR ESTO, ya que nos llegan cordenadas
-    if (isset($_POST['productoElegido'])){
-        echo $_POST['productoElegido'];
-        //$nuevoProducto = new Producto();
-    }
+    //print_r($_POST);
 
     // Nos devuelve el numero de mesa en el que nos encontramos
     $numMesa = $_SESSION['numMesaActual'];
+
+    // Comprobamos si se ha seleccionado algun producto HAY QUE ARREGLAR ESTO, ya que nos llegan cordenadas
+    if (isset($_POST['productoElegido'])){
+        $listaPedidos->addLineaPedido($_POST['productoElegido'], $idMesa);
+
+    }
 
     // Comprobamos si se ha selecionnado el boton de cerrar mesa y generar factura
     if (isset($_POST['generarFactura'])){
@@ -57,6 +64,7 @@ if (isset($_POST) && !empty($_POST)){
         if (count($listaPedidos->getLista()) > 0) {
 
             $idFactura = $listaPedidos->crearFactura($idMesa, "Bryan", $numMesa);
+            $conexion->cerrarMesa($idMesa);
             header("location:../../../factura.php?idFactura=$idFactura");
 
         }
@@ -66,7 +74,13 @@ if (isset($_POST) && !empty($_POST)){
 } else {
 
     // Nos guarda el numero de mesa que llega por el get a su variable y tambien en el sesion para cuando actualice pagine sepamos en que mesa seguimos
-    $numMesa = $_GET['numMesa'];
+    if(empty($_GET['numMesa'])){ // Si no hay get nos carga la mesa 1
+        $numMesa = 1;
+    } else {
+        $numMesa = $_GET['numMesa'];
+    }
+
+    // Guardamos el numMesa en el session para cuando recargue la pagina continuar en ella
     $_SESSION['numMesaActual'] = $numMesa;
 }
 
@@ -127,37 +141,61 @@ if (isset($_POST) && !empty($_POST)){
     <div id="contenedorInferior">
         <div id ="contenedorListado">
 
-            <div id="listado">
-                <?php
 
-                    $conexion = new BD();
+            <?php
 
-                    $listaPedidos = new ListaLineasPedidos();
+                $listaPedidos = new ListaLineasPedidos();
 
-                    // Comprobamos si la mesa está en uso
-                    if (!$conexion->comprobarMesaOcupada($numMesa)){ // Si NO está en uso
+                // Comprobamos si la mesa está en uso
+                if (!$conexion->comprobarMesaOcupada($numMesa)){ // Si NO está en uso
 
-                        // Creamos un nuevo registro mesa
-                        $res = $conexion-> insertarRegistroMesa($numMesa);
+                    // Creamos un nuevo registro mesa
+                    $res = $conexion-> insertarRegistroMesa($numMesa);
 
-                    } else { // Si está en uso
-                        // Guardamos la id del registro mesa
-                        $idMesa = $conexion->getIdMesaOcupada($numMesa);
-                        $_SESSION['idMesa'] = $idMesa;
+                } else { // Si está en uso
+                    // Guardamos la id del registro mesa
+                    $idMesa = $conexion->getIdMesaOcupada($numMesa);
+                    $_SESSION['idMesa'] = $idMesa;
 
-                        // Obtenemos la lista de pedidos (en el atributo lista)
-                        $listaPedidos->getListaPedidosMesa($idMesa);
+                    // Obtenemos la lista de pedidos (en el atributo lista)
+                    $listaPedidos->getListaPedidosMesa($idMesa);
 
-                        // Cargamos la lista en divs
+                    // Cargamos la lista en divs
+
+
+
+            ?>
+
+                    <form id="listado" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" >
+
+
+                        <?php
+                        echo'<div class="columNombre editCampos">PRODUCTO</div>';
+                        echo'<div class="columUnids editCampos">UNIDS</div>';
+                        echo'<div class="columEdit editCampos"></div>';
+
+
                         for ($i = 0; $i < count($listaPedidos->getLista()); $i++) {
-                            echo'<div>'.$listaPedidos->getLista()[$i]->getNombreProducto().' || UNID: '.$listaPedidos->getLista()[$i]->getCantidadProducto().'</div>';
+                            echo'<div class="columNombre separacionInferior">'.$listaPedidos->getLista()[$i]->getNombreProducto().'</div>';
+                            echo'<div class="columUnids separacionInferior">'.$listaPedidos->getLista()[$i]->getCantidadProducto().'</div>';
+                            echo'<div class="columEdit flexBotones separacionInferior">
+                                    <button class="arregloBoton" type="submit" name="editRestar" value="'.$listaPedidos->getLista()[$i]->getfreferenciaProducto().'"><img class="imgBotonesEdit" src="images/btnRestar.png" alt="boton de restar"></button>                                                 
+                                    <button class = "arregloBoton" type="submit" name="editSumar" value="'.$listaPedidos->getLista()[$i]->getfreferenciaProducto().'"><img class="imgBotonesEdit" src="images/btnSumar.png" alt="boton de sumar"></button>
+                                </div>';
 
                         }
 
-                    }
+            ?>
 
-                ?>
-            </div>
+                    </form>
+            <?php
+
+
+
+                }
+
+            ?>
+
 
 
             <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" >
@@ -202,7 +240,7 @@ if (isset($_POST) && !empty($_POST)){
                         $contador = 0;
                         for ($i = 0; $i < count($listaProductos->getLista()); $i++) {
                             if($listaProductos->getLista()[$i]->getStock() > 0){ // Si hay stock del producto
-                                echo '<div> <input name="productoElegido" class="tamanoImagenes imgHover" type="image" value ="'.$listaProductos->getLista()[$i]->getReferencia().'" alt ="imagenProducto" src="'.$listaProductos->getLista()[$i]->getImagen().'"> </div>';
+                                echo '<div> <button class ="arregloBoton" name="productoElegido" type="submit" value ="'.$listaProductos->getLista()[$i]->getReferencia().'"><img class="tamanoImagenes imgHover" src="'.$listaProductos->getLista()[$i]->getImagen().'" alt="imagen del producto"> </button></div>';
                                 //echo $listaProductos->getLista()[$i]->getReferencia();
                             } else { // Si no hay stock no se muestras
                                 echo '<div></div>';
