@@ -38,8 +38,10 @@ if (isset($_POST) && !empty($_POST)){
     // Comprobamos si se ha selecionnado el boton de cerrar mesa y generar factura
     if (isset($_POST['generarFactura'])){
 
-        // Hay que validar primero que haya productos en la lista!!
-        $factura = new Factura();
+        /* Hay que validar primero que haya productos en la lista!!
+        $factura = new Factura();*/
+
+        header("location:../../../factura.php");
 
     }
 
@@ -70,7 +72,7 @@ if (isset($_POST) && !empty($_POST)){
 
     <link rel="shortcut icon" href="" type=" image/x-icon">
     <link rel="icon" href="" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="">
+    <link href="./css/seleccionPedidos.css" rel="stylesheet" type="text/css">
 
 
     <title>El texto que va en la pestaña</title>
@@ -78,226 +80,6 @@ if (isset($_POST) && !empty($_POST)){
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
 
-    <style>
-        /*FUENTES DEL PROYECTO*/
-        * {
-
-            font-family: 'Roboto', Arial, Verdana, sans-serif;
-        }
-
-        /*COLORES DEL PROYECYO*/
-
-
-        #contenedor{
-            max-width: 1200px;
-            height: 700px;
-            margin: 0 auto;
-            background: #BD977E;
-
-
-        }
-
-        #contenedor > div {
-            padding: 10px;
-        }
-
-        /***** PARTE SUPERIOR *****/
-
-        #contenedorSuperior {
-
-            width: 100%;
-            display: flex;
-
-
-        }
-
-        #contenedorInformacionMesa{
-            width: 25%;
-            margin-right: 5px;
-            background: white;
-            padding: 4px;
-            border-radius: 4px;
-            filter:alpha(opacity=70);
-            -moz-opacity:.70;opacity:.70;
-        }
-
-        #contenedorLogo{
-            width: 71.5%;
-            background: white;
-            padding: 4px;
-            border-radius: 4px;
-            filter:alpha(opacity=70);
-            -moz-opacity:.70;opacity:.70;
-        }
-
-        .logo{
-            width: 20%;
-            display: block;
-            margin: 0 auto;
-            padding-top: 8px;
-        }
-
-
-        /***** PARTE INFERIOR *****/
-
-
-        #contenedorInferior{
-
-            width: 100%;
-            height: 73%;
-            display: flex;
-        }
-
-        #contenedorListado{
-            background: white;
-            border-radius: 4px;
-            margin-right: 5px;
-            display: flex;
-            flex-flow: column wrap;
-            justify-content: space-around;
-            width: 30%;
-            height: 103.5%;
-        }
-
-        #listado{
-            border: 2px solid gray;
-            margin: 0 auto;
-            width: 90%;
-            height: 82%;
-
-        }
-
-        #botonesFinales{
-
-            text-align: center;
-        }
-
-        #botonesProductos{
-            width: 67%;
-        }
-
-        #contenedorTiposProducto{
-            background: #FFDCC4;
-            padding: 4px;
-            border-radius: 4px;
-            width: 100%;
-            margin-bottom: 15px;
-            display: flex;
-            flex-flow: row wrap;
-            justify-content: space-around;
-        }
-
-        #contenedorTiposProducto > div{
-            width: 25%;
-            margin: 6px;
-
-        }
-
-        #contenedorProductos{
-            width: 100%;
-            display: flex;
-            flex-flow: row wrap;
-            justify-content:space-around;
-
-            /* POR SI QUEREMOS AÑADIR EL SCROLL
-            height: 402px;
-            overflow-x: scroll;
-            */
-
-
-        }
-
-        .tamanoImagenes{
-            width: 120px;
-            display: block;
-            margin: 0 auto;
-        }
-
-        .imgHover:hover {
-            -webkit-filter: contrast(130%);
-            filter: contrast(110%);
-            transform: scale(1.05);
-
-        }
-
-        #contenedorProductos > div{
-            width: 32%;
-            height: 120px;
-            margin-bottom: 10px;
-
-            background: #FFDCC4;
-            padding: 4px;
-            border-radius: 4px;
-
-        }
-
-
-
-        /**** BOTONES ****/
-        .btn {
-            width: 160px;
-            background: #ff6600;
-            background-image: -webkit-linear-gradient(top, #ff6600, #c44e00);
-            background-image: -moz-linear-gradient(top, #ff6600, #c44e00);
-            background-image: -ms-linear-gradient(top, #ff6600, #c44e00);
-            background-image: -o-linear-gradient(top, #ff6600, #c44e00);
-            background-image: linear-gradient(to bottom, #ff6600, #c44e00);
-            border-radius: 28px;
-            text-shadow: 1px 1px 3px #666666;
-           /* font-family: Arial;*/
-            color: #ffffff;
-            font-size: 13px;
-            font-weight: bold;
-            letter-spacing: 1px;
-            padding: 10px 20px 10px 20px;
-            text-decoration: none;
-            display: block;
-            margin: 0 auto;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background: #c44e00;
-            text-decoration: none;
-        }
-
-
-        .btnImprimir {
-            background: #990000;
-            background-image: -webkit-linear-gradient(top, #990000, #7a0909);
-            background-image: -moz-linear-gradient(top, #990000, #7a0909);
-            background-image: -ms-linear-gradient(top, #990000, #7a0909);
-            background-image: -o-linear-gradient(top, #990000, #7a0909);
-            background-image: linear-gradient(to bottom, #990000, #7a0909);
-            border-radius: 28px;
-            text-shadow: 1px 1px 3px #666666;
-            color: #ffffff;
-            font-size: 15px;
-            padding: 10px 20px 10px 20px;
-            text-decoration: none;
-            display: block;
-            margin: 0 auto;
-            cursor: pointer;
-        }
-
-        .btnImprimir:hover {
-            background: #c44e00;
-            background-image: -webkit-linear-gradient(top, #c44e00, #990000);
-            background-image: -moz-linear-gradient(top, #c44e00, #990000);
-            background-image: -ms-linear-gradient(top, #c44e00, #990000);
-            background-image: -o-linear-gradient(top, #c44e00, #990000);
-            background-image: linear-gradient(to bottom, #c44e00, #990000);
-            text-decoration: none;
-        }
-
-        .btnVolver{
-            width: 40px;
-        }
-
-
-
-
-    </style>
 
 </head>
 
@@ -405,9 +187,9 @@ if (isset($_POST) && !empty($_POST)){
                         $contador = 0;
                         for ($i = 0; $i < count($listaProductos->getLista()); $i++) {
                             if($listaProductos->getLista()[$i]->getStock() > 0){ // Si hay stock del producto
-                                echo '<div><input name="productoElegido" alt ="imagenProducto" class ="tamanoImagenes imgHover" type="image" src="'.$listaProductos->getLista()[$i]->getImagen().'" value ="'.$listaProductos->getLista()[$i]->getReferencia().'"> </div>';
+                                echo '<div> <input name="productoElegido" class="tamanoImagenes imgHover" type="image" value ="'.$listaProductos->getLista()[$i]->getReferencia().'" alt ="imagenProducto" src="'.$listaProductos->getLista()[$i]->getImagen().'"> </div>';
                                 //echo $listaProductos->getLista()[$i]->getReferencia();
-                            } else { // Si no hay stock no se muestra
+                            } else { // Si no hay stock no se muestras
                                 echo '<div></div>';
 
                             }

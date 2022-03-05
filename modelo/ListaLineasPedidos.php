@@ -95,24 +95,27 @@ class ListaLineasPedidos
 
     }
 
-    public function crearFactura ($idMesa, $nombreEmpleado, $fecha, $numeroMesa) {
+    public function crearFactura ($idMesa, $nombreEmpleado, $numeroMesa) {
 
         $factura = new Factura();
 
-        $consulta = "INSERT INTO facturas VALUES (". $idMesa .", ". $nombreEmpleado . ", ". $fecha . ", ". $numeroMesa . ");";
+        $consulta = "INSERT INTO facturas (numeroFactura, empleado, fecha, numeroMesa) VALUES (". $idMesa .", '". $nombreEmpleado . "', now(), ". $numeroMesa . ");";
+        echo $consulta;
         $conexion = new BD();
         $resultado = $conexion->consulta($consulta);
 
-        if ($resultado->num_rows != 0) {
+        // Cunado la consulta es un insert, $resultado guarda un boolean del resultado
+        if ($resultado) {
 
             echo "Se genero la factura";
 
             foreach ($this->lista as $lineaPedido) {
 
-                $consulta = "INSERT INTO lineasfacturas VALUES (". $idMesa .", ". $lineaPedido->getNombreProducto() . ", ". $lineaPedido->getFreferenciaProducto(). ", ". $lineaPedido->getPrecioProducto() . ", ". $lineaPedido->getIvaProducto() . ", ". $lineaPedido->getCantidadProducto() . ");";
+                $consulta = "INSERT INTO lineasfacturas (fnumeroFactura, nombreProducto, referenciaProducto, precioProducto, ivaProducto, cantidadProducto) VALUES (". $idMesa .", '". $lineaPedido->getNombreProducto() . "', '". $lineaPedido->getFreferenciaProducto(). "', ". $lineaPedido->getPrecioProducto() . ", ". $lineaPedido->getIvaProducto() . ", ". $lineaPedido->getCantidadProducto() . ");";
+                echo $consulta;
                 $resultado = $conexion->consulta($consulta);
 
-                if ($resultado->num_rows != 0) {
+                if ($resultado) {
 
                     echo "Se inserto la fila de la factura del producto: " . $lineaPedido->getNombreProducto();
 
