@@ -1,3 +1,10 @@
+<?php
+
+session_start();
+$empleado = $_SESSION['empleado'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -74,7 +81,7 @@
 				
 					<!-- LOGO IMAGE -->
 	                <div class="logo" data-mobile-logo="images/logo-01.png" data-sticky-logo="images/logo-01.png">
-	                	<a href="index.html"><img src="images/logo-01.png" alt="header-logo"/></a>
+	                	<a href="index.php"><img src="images/logo-01.png" alt="header-logo"/></a>
 					</div>
 
 					<!-- MENU PRINCIPAL -->
@@ -82,11 +89,11 @@
 	                	<ul class="top-list">	
 							
 							<!-- MENÚ DESPEGABLE -->
-	                		<li><a href="mesas.html">ELEGIR MESA</a>
+	                		<li><a href="mesas.php">ELEGIR MESA</a>
 	                		</li>
 
 							<!-- MENÚ DESPEGABLEU -->
-	                		<li><a href="index.html">MENÚ</a>
+	                		<li><a href="index.php">MENÚ</a>
 	                		</li>
 	                    </ul>
 	                </nav>	<!--FINAL MENU PRINCIPAL -->
@@ -103,34 +110,34 @@
 			<section id="menu-6" class="wide-70 menu-section division">
 				<div class="container">
 
-					<!-- SECCIÓN TITULO -->	
-					<div class="row">	
-						<div class="col-lg-10 offset-lg-1">
-							<div class="section-title mb-60 text-center">	
+                    <!-- SECCIÓN TITULO -->
+                    <div class="row">
+                        <div class="col-lg-10 offset-lg-1">
+                            <div class="section-title mb-60 text-center">
 
-								<!-- titulo 	-->	
-								<h2 class="h2-xl red-color">Elige una mesa </h2>	
+                                <!-- titulo 	-->
+                                <h2 class="h2-xl red-color">Elige una mesa </h2>
 
-								<!-- Texto -->	
-								<p class="p-xl">Selecciona la mesa de tu preferencia para empezar a pedir tu comida!
-								</p>
-									
-								<div align="center"></div><img src="images/mesas.jpg" usemap="#image-map" alt="" width="1000" height="700"></div>
+                                <!-- Texto -->
+                                <p class="p-xl">Selecciona la mesa de tu preferencia para empezar a pedir tu comida!
+                                </p>
 
-								<map name ="image-map">
-									<area shape="rect" alt="1" title="" coords="19,13,396,292" href="seleccionPedidos.php?numMesa=1" target="" />
-									<area shape="rect" alt="" title="" coords="501,15,933,278" href="seleccionPedidos.php?numMesa=2" target="" />
-									<area shape="rect" alt="" title="" coords="1110,29,1359,290" href="seleccionPedidos.php?numMesa=3" target="" />
-									<area shape="rect" alt="" title="" coords="58,474,470,742" href="seleccionPedidos.php?numMesa=4" target="" />
-									<area shape="rect" alt="" title="" coords="612,367,837,616" href="seleccionPedidos.php?numMesa=5" target="" />
-									<area shape="rect" alt="" title="" coords="1007,474,1339,730" href="seleccionPedidos.php?numMesa=6" target="" />
-								</map>
-							</div>	
-						</div>
-					</div>
-				 	</div>	 <!-- Final row -->
-				</div>	 <!-- Final contenedor -->
-			</section>	<!-- Final BANNER-2 -->
+                                <img class="centrado" src="images/mesas.jpg" usemap="#image-map" alt="" width="747" height="747">
+
+                                <map name ="image-map">
+                                    <area shape="rect" alt="" title="" coords="34,46,178,276" href="seleccionPedidos.php?numMesa=1&empleado=<?php echo $empleado?>" target="" />
+                                    <area shape="rect" alt="" title="" coords="270,44,474,284" href="seleccionPedidos.php?numMesa=2&empleado=<?php echo $empleado?>" target="" />
+                                    <area shape="rect" alt="" title="" coords="584,46,688,292" href="seleccionPedidos.php?numMesa=3&empleado=<?php echo $empleado?>" target="" />
+                                    <area shape="rect" alt="" title="" coords="326,374,424,614" href="seleccionPedidos.php?numMesa=4&empleado=<?php echo $empleado?>" target="" />
+                                    <area shape="rect" alt="" title="" coords="32,486,244,726" href="seleccionPedidos.php?numMesa=5&empleado=<?php echo $empleado?>" target="" />
+                                    <area shape="rect" alt="" title="" coords="526,486,688,722" href="seleccionPedidos.php?numMesa=6&empleado=<?php echo $empleado?>" target="" />
+                                </map>
+                            </div>
+                        </div>
+                    </div>
+                </div>	 <!-- Final row -->
+                </div>	 <!-- Final contenedor -->
+            </section>	<!-- Final BANNER-2 -->
 
 			<!-- BANNER-3
 			============================================= -->

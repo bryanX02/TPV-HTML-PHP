@@ -17,6 +17,17 @@ if (isset($_SESSION['idMesa'])) {
 
 }
 
+if (isset($_GET['empleado'])) {
+
+    $empleado = $_GET['empleado'];
+    $_SESSION['empleado'] = $empleado;
+
+}else {
+    
+    $empleado = $_SESSION['empleado'];
+
+}
+
 if (!empty($_SESSION['tipo'])){
     $tipo = $_SESSION['tipo'];
 } else {
@@ -76,9 +87,9 @@ if (isset($_POST) && !empty($_POST)){
         echo "hola";
         if (count($listaPedidos->getLista()) > 0) {
 
-            $idFactura = $listaPedidos->crearFactura($idMesa, "Bryan", $numMesa);
+            $idFactura = $listaPedidos->crearFactura($idMesa, $empleado, $numMesa);
             $conexion->cerrarMesa($idMesa);
-            header("location:../factura.php?idFactura=$idFactura");
+            header("location:../factura.php?idFactura=$idFactura&empleado=$empleado");
 
         }
 
@@ -136,7 +147,7 @@ if (isset($_POST) && !empty($_POST)){
 
         <!-- Información de la mesa -->
         <div id = "contenedorInformacionMesa">
-            <a href="mesas.html"><img class="btnVolver" alt="boton de volver" src="images/btnVolver.png" ></a>
+            <a href="mesas.php"><img class="btnVolver" alt="boton de volver" src="images/btnVolver.png" ></a>
             <p>Camarero: Bryan Quilumba</p>
             <p>Mesa: <?php echo $numMesa?></p>
         </div>

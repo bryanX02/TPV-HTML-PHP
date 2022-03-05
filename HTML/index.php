@@ -82,11 +82,11 @@
 	                	<ul class="top-list">	
 							
 							<!-- MENÚ DESPEGABLE -->
-	                		<li><a href="mesas.html">ELEGIR MESA</a>
+	                		<li><a href="login.php">ELEGIR MESA</a>
 	                		</li>
 
 							<!-- MENÚ DESPEGABLEU -->
-	                		<li><a href="index.html">MENÚ</a>
+	                		<li><a href="index.php">MENÚ</a>
 	                		</li>
 	                    </ul>
 	                </nav>	<!--FINAL MENU PRINCIPAL -->
