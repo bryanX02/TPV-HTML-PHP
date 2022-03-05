@@ -57,7 +57,7 @@ class ListaLineasPedidos
      */
     public function getListaPedidosMesa($idMesa){
 
-        $consulta = "SELECT * FROM lineasPedidos WHERE fidMesa = ".$idMesa.";";
+        $consulta = "SELECT * FROM lineasPedidos WHERE fidMesa = ".$idMesa." ORDER BY tipoProducto, nombreProducto;";
         $conexion = new BD();
         $resultado = $conexion->consulta($consulta);
 
@@ -152,22 +152,29 @@ class ListaLineasPedidos
 
     }
 
-    public function resLineaPedido($referenciaProducto, $idMesa){
+    public function resLineaPedido($referenciaProducto, $fidMesa){
 
         $conexion = new BD();
 
-        if ($this->comprobarExisteReferenciaPedido($referenciaProducto)){
-            $sql = "UPDATE " .$this->tabla. " SET cantidadProducto = cantidadProducto + 1 WHERE freferenciaProducto = '" . $referenciaProducto."'";
-            $res = $conexion->consulta($sql);
-            $sql = "UPDATE " .$this->tabla. " SET cantidadProducto = cantidadProducto + 1 WHERE freferenciaProducto = '" . $referenciaProducto."'";
+        $sql = "SELECT cantidadProducto from " .$this->tabla. " WHERE freferenciaProducto = '" . $referenciaProducto."' and fidMesa = '" . $fidMesa . "';";
 
-        } else {
+        $res = $conexion->consulta($sql);
 
-            $producto = new Producto();
-            $producto->obtenerPorRefProducto($referenciaProducto);
+        $cantidadProducto = -1;
 
-            $sql = "DELETE INTO " .$this->tabla. " (fidMesa, freferenciaProducto, tipoProducto, nombreProducto, descripcionProducto, precioProducto, ivaProducto, cantidadProducto) values (".$idMesa.", '".$referenciaProducto."', ".$producto-> getTipo().",'".$producto-> getNombre()."', '".$producto-> getDescripcion()."', ".$producto-> getPrecio().", ".$producto-> getIva().", 1)";
+        // Esto nos ayuda a sacarlo del objeto de la clase mysqli_result para poder usar el número
+        while ($row = $res->fetch_assoc()) {
 
+            $cantidadProducto = $row['cantidadProducto'];
+
+        }
+
+        if ($cantidadProducto > 1) {
+
+            $sql = "UPDATE " .$this->tabla. " SET cantidadProducto = cantidadProducto - 1 WHERE freferenciaProducto = '" . $referenciaProducto."' and fidMesa = '" . $fidMesa . "';";
+
+        }else if ($cantidadProducto == 1) {
+            $sql = "DELETE FROM " .$this->tabla. " WHERE freferenciaProducto = '" . $referenciaProducto."' and fidMesa = '" . $fidMesa . "';";
         }
 
         $conexion->consulta($sql);

@@ -36,7 +36,7 @@ $pdf = new FPDF();
 $pdf->SetTitle("FACTURA", true);
 $pdf->AddPage();
 $pdf->SetAutoPageBreak(true, 1);
-$pdf->Image('./Pag/Testo-HTML/HTML/images/logo-01.png',10,10,90);
+$pdf->Image('HTML/images/logo-01.png',10,10,90);
 
 // TITULO
 $pdf->SetFont('Arial', 'B', 15);
